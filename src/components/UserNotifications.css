@@ -1,0 +1,34 @@
+.badge {
+    background-color: red;
+    color: white;
+    padding: 3px 7px;
+    border-radius: 50%;
+    font-size: 12px;
+    vertical-align: middle;
+    margin-left: 5px;
+  }
+  
+  .notifications-container {
+    padding: 20px;
+  }
+  
+  .notifications-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .notifications-list li {
+    background: #f4f4f4;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .notifications-list li.unread {
+    font-weight: bold;
+  }
+  
+  .notifications-list li.read {
+    font-weight: normal;
+  }
+  

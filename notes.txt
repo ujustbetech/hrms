@@ -1,0 +1,9 @@
+review -
+grace -break time sessions to be added
+
+gaurav sir-
+if emp takes more than 2 leaves attachment should be added 
+admin authority to team lead as well
+gmail notification to hr tl and user
+leave req if approved should be vanished from dash but stored in backend
+reason and attachment should be displayed in admin board 
