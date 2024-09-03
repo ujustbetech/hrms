@@ -3,6 +3,7 @@ import { db } from '../firebaseConfig';
 import { doc, getDoc, collection, getDocs } from 'firebase/firestore';
 import { useParams } from 'react-router-dom';
 import logo from '../videoframe_logo.png';
+import { useNavigate } from 'react-router-dom';  
 import './UserSessions.css';
 
 const UserSessions = () => {
@@ -10,6 +11,7 @@ const UserSessions = () => {
   const [expandedDates, setExpandedDates] = useState([]);
   const [userName, setUserName] = useState('');
   const { userId } = useParams();
+  const navigate = useNavigate();  // Initialize useNavigate
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -48,12 +50,17 @@ const UserSessions = () => {
     );
   };
 
+  const handleBack = () => {
+    navigate(-1);  // Navigate back to the previous page
+  };
+
   return (
     <div className="session-panel-wrapper">
       <div className="user-sessions">
         <div className="header">
           <img src={logo} alt="Logo" className="logo" />
           <h2>Attendance {userName && `of ${userName}`}</h2> {/* Display the user's name */}
+          <button className="back-buttons" onClick={handleBack}>Back</button>
         </div>
         <div className="sessions-table-container">
           {sessions.length > 0 ? (
