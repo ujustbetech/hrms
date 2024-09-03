@@ -265,7 +265,10 @@ nav {
   color: #ff7e5f;
   cursor: pointer;
 }
+
+
 /* From Uiverse.io by javierBarroso */ 
+
 .social-login-icons {
   display: flex;
   align-items: center;
@@ -275,6 +278,7 @@ nav {
 .social-login-icons svg {
   width: 40px;
 }
+
 
 .social-icon-1,
 .social-icon-1-1,
@@ -290,11 +294,13 @@ nav {
   align-items: center;
   justify-content: center;
   border-radius: 50px;
-  margin: 20px 0 0px 0;
+  margin: 30px 0 0px 0;
+  
 }
 
 .icon svg {
-  fill: #111;
+  fill: wheat;
+  transition: opacity 0.5s ease;
 }
 
 .socialcontainer {
@@ -303,7 +309,7 @@ nav {
 }
 .social-icon-1 {
   transition-duration: 0.4s;
-  background-color: rgb(255, 65, 65);
+  background-color: red;
   transition-timing-function: cubic-bezier(0.46, -0.78, 0.5, 1.56);
 }
 .social-icon-1 svg,
@@ -327,8 +333,6 @@ nav {
 .socialcontainer:hover .social-icon-4 svg {
   opacity: 1;
 }
-
-
 .social-icon-2 {
   transition-duration: 0.4s;
   transition-timing-function: cubic-bezier(0.46, -0.78, 0.5, 1.56);
@@ -367,9 +371,6 @@ nav {
 }
 
 
-
-
-
 /* From Uiverse.io by cssbuttons-io */ 
 .bton {
   padding: 1.3em 3em;
@@ -397,3 +398,4 @@ nav {
 .bton:active {
   transform: translateY(-1px);
 }
+
