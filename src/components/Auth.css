@@ -1,65 +1,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Forum&display=swap');
-body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  overflow: hidden;
-}
-
 
 .mainContainer {
   font-family: 'Arial', sans-serif;
   color: #ffffff;
   background: url('../space.jpeg') no-repeat center center fixed;
   background-size: cover;
-  flex-grow: 1; /* Allow the main content to grow */
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  
+  overflow: hidden; /* Prevent scrolling */
 }
-/* Header Section */
-/* .headerMain {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 50px;
-} */
 
+/* Header Section */
 .headerMain {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 50px;
+  padding: 20px 50px;
 }
-
-/* .footerMain{
+.footerMain{
   display: flex;
   justify-content: space-between;
   padding: 10px 30px;
   align-items: center;
   height: 1vh;
-} */
-.footerMain {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 90px 20px 0 20px; 
-  overflow: visible;
-
 }
-
-/* .logoN img {
-  width: 80px;
-  height: auto;
-} */
 .logoN img {
   width: 80px;
+  height: auto;
 }
 
 /* Navigation Container */
@@ -88,12 +58,11 @@ nav {
   cursor: pointer;
   position: relative;
   isolation: isolate;
- display: block;
-  margin-top: 10px;
+  display: inline-grid;
   place-content: center;
   padding: 0.5em 1.5em;
-  font-size: 16px;
- border-radius: 5px;
+  font-size: 17px;
+  border: 0;
   text-transform: uppercase;
   text-decoration: none;
   box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.6);
@@ -106,21 +75,8 @@ nav {
     0 100%
   );
   transition: color 250ms;
-} 
-/* .background-tab-link {
-  font-size: 16px;
-  color: #007bff;
-  cursor: pointer;
-  margin-top: 10px;
-  display: block;
-  padding: 15px 30px;
-  background: #f8f9fa;
-  border-radius: 5px;
 }
 
-.background-tab-link:hover {
-  background: #e2e6ea;
-} */
 .background-tab-link::after,
 .background-tab-link::before {
   content: "";
@@ -185,93 +141,57 @@ nav {
 }
 
 
-/* Login Main Section
+/* Login Main Section */
 .loginMain {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 50px 100px;
   flex-grow: 1;
-} */
-.loginMain {
-  flex-grow: 1; /* This will ensure the content area grows to fill the space */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 40px 20px;
-  min-height: 0; /* Prevents unnecessary height growth */
 }
 
 /* Left Section */
- /* .loginLeft {
+.loginLeft {
   max-width: 50%;
-} */
+}
 
 .loginLeft h1 {
   background: linear-gradient(90deg, #ff7e5f, #feb47b);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-size: 2.5em;
+  font-size: 3em;
+  font-weight: 700;
   font-family: 'Mukta', sans-serif;;
-   margin-bottom: 20px;
- 
+  margin: 0;
+  line-height: 1.2;
+  padding: 0px;
+  text-align: left;
+  font-family: ;
 }
 
 .loginLeft p {
-  font-size: 1.8em;
+  font-size: 2em;
   font-family: 'Forum' ,sans-serif;
-  margin-bottom: 40px;
-} 
-
-.loginLeft, .LoginRight {
-  flex: 1;
-  margin: 20px;
-  text-align: center;
-}
-
-/* .loginLeft h1 {
-  font-size: 2.5em;
+  font-weight: 600;
   margin-bottom: 20px;
-} */
-
-/* .loginLeft p {
-  font-size: 1.8em;
-  margin-bottom: 40px;
-} */
+}
 
 .signup-button {
   background: linear-gradient(145deg, #6c6cff, #5959ff);
   color: white;
   border: none;
-  padding: 15px 0px;
+  padding: 15px 30px;
   font-size: 18px;
   font-weight: 600;
+  border-radius: 5px;
   cursor: pointer;
   transition: all 0.3s ease;
-  width: 30%;
-  margin-top: 20px;
-
 }
 
 .signup-button:hover {
   transform: translateY(-2px);
   box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.3), -4px -4px 12px rgba(255, 255, 255, 0.2);
-} 
-
-/* .signup-button {
-  width: 100%;
-  padding: 15px 0;
-  background-color: #28a745;
-  border: none;
-  color: white;
-  font-size: 18px;
-  cursor: pointer;
-  margin-top: 20px;
 }
-
-.signup-button:hover {
-  background-color: #218838; */
-
 
 /* Right Section */
 .LoginRight {
@@ -280,24 +200,14 @@ nav {
   justify-content: flex-end;
 }
 
-/* .loginBox {
+.loginBox {
   background-color: white; 
   padding:30px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 300px;  
-  height: 300px; 
+  height: 300px; /* Allow height to adjust based on content */
   text-align: center;
-  border-radius: 15px;
-} */
-
-.loginBox {
-  width: 310px;
-  max-width: 100%;
-  height: 300px; 
-  background: white;
-  padding: 40px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   border-radius: 15px;
 }
 
@@ -355,19 +265,15 @@ nav {
   color: #ff7e5f;
   cursor: pointer;
 }
-
-
 /* From Uiverse.io by javierBarroso */ 
 .social-login-icons {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-top: 20px;
   -webkit-box-reflect: below 5px linear-gradient(transparent, #00000055);
 }
 .social-login-icons svg {
   width: 40px;
-  height: 30px;
 }
 
 .social-icon-1,
@@ -384,13 +290,11 @@ nav {
   align-items: center;
   justify-content: center;
   border-radius: 50px;
-  margin: 30px 0 0px 0;
-  
+  margin: 20px 0 0px 0;
 }
 
 .icon svg {
-  fill: wheat;
-  transition: opacity 0.5s ease;
+  fill: #111;
 }
 
 .socialcontainer {
@@ -399,7 +303,7 @@ nav {
 }
 .social-icon-1 {
   transition-duration: 0.4s;
-  background-color: red;
+  background-color: rgb(255, 65, 65);
   transition-timing-function: cubic-bezier(0.46, -0.78, 0.5, 1.56);
 }
 .social-icon-1 svg,
@@ -423,6 +327,8 @@ nav {
 .socialcontainer:hover .social-icon-4 svg {
   opacity: 1;
 }
+
+
 .social-icon-2 {
   transition-duration: 0.4s;
   transition-timing-function: cubic-bezier(0.46, -0.78, 0.5, 1.56);
@@ -461,82 +367,8 @@ nav {
 }
 
 
-@media only screen and (max-width: 1024px) {
-  .loginMain {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .loginLeft, .LoginRight {
-    width: 100%;
-    text-align: center;
-  }
-  
-  .loginBox {
-    width: 90%;
-    padding: 20px;
-  }
-  
-  .signup-button {
-    width: 100%;
-    padding: 15px;
-  }
-}
 
-@media only screen and (max-width: 768px) {
-  .headerMain, .footerMain {
-    flex-direction: column;
-    text-align: center;
-    padding: 20px;
-  }
 
-  .logoN img {
-    width: 60px;
-  }
-
-  .loginMain {
-    padding: 20px;
-    flex-direction: column;
-  }
-
-  .loginBox {
-    width: 100%;
-    padding: 20px;
-  }
-}
-
-@media only screen and (max-width: 480px) {
- 
-
-  .signup-button {
-    width: 30%;
-    padding: 10px;
-    font-size: 14px;
-  }
-
-  
-  .headerMain, .footerMain {
-    padding: 5px;
-  }
-  .loginLeft h1 {
-    font-size: 1.8em; /* Adjust font size if needed */
-    margin-top: 0; /* Remove or reduce top margin */
-    margin-bottom: 10px; /* Adjust bottom margin as needed */
-    padding-top: 5px; /* Add padding if needed */
-    position: relative; /* Adjust position if needed */
-    top: -15px; /* Move the heading up */
-  }
-
-  .loginLeft p {
-    font-size: 1.2em; /* Adjust font size if needed */
-    top: -20px;
-  }
-  .loginBox {
-    padding: 8px;
-    width: 95%;
-  }
-
-}
 
 /* From Uiverse.io by cssbuttons-io */ 
 .bton {
