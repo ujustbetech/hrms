@@ -6,7 +6,7 @@
   color: #ffffff;
   background: url('../space.jpeg') no-repeat center center fixed;
   background-size: cover;
-  height: 100vh;
+  min-height: 100vh; 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -23,7 +23,7 @@
 .footerMain{
   display: flex;
   justify-content: space-between;
-  padding: 10px 30px;
+  padding: 15px 30px;
   align-items: center;
   height: 1vh;
 }
@@ -152,7 +152,7 @@ nav {
 
 /* Left Section */
 .loginLeft {
-  max-width: 50%;
+  margin-bottom: 20px;
 }
 
 .loginLeft h1 {
@@ -162,7 +162,7 @@ nav {
   font-size: 3em;
   font-weight: 700;
   font-family: 'Mukta', sans-serif;;
-  margin: 0;
+  margin: 0 0 10px 0;
   line-height: 1.2;
   padding: 0px;
   text-align: left;
@@ -173,7 +173,7 @@ nav {
   font-size: 2em;
   font-family: 'Forum' ,sans-serif;
   font-weight: 600;
-  margin-bottom: 20px;
+  margin: 0 0 20px 0; 
 }
 
 .signup-button {
@@ -181,7 +181,7 @@ nav {
   color: white;
   border: none;
   padding: 15px 30px;
-  font-size: 18px;
+  font-size: 1em;
   font-weight: 600;
   border-radius: 5px;
   cursor: pointer;
@@ -195,7 +195,6 @@ nav {
 
 /* Right Section */
 .LoginRight {
-  width: 45%;
   display: flex;
   justify-content: flex-end;
 }
@@ -205,6 +204,7 @@ nav {
   padding:30px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   width: 100%;
+  margin: 20px 0; /* Margin for spacing */
   max-width: 300px;  
   height: 300px; /* Allow height to adjust based on content */
   text-align: center;
@@ -398,4 +398,153 @@ nav {
 .bton:active {
   transform: translateY(-1px);
 }
+/* Main container adjustments */
+@media (max-width: 767px) {
+  /* Main Container */
+  .mainContainer {
+    width: 100%;
+    display: flex;
+    padding: 0 2px; /* Reduced padding for more compact layout */
+    text-align: center; /* Center-align all content */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+  }
 
+  /* Header Section */
+  .loginLeft h1 {
+    font-size: 1.3rem; /* Smaller font size to fit on one line */
+    color: #ff8c42; /* Accent color */
+    max-width: 90%; /* Ensure the text uses more space */
+    white-space: normal; /* Allow text wrapping */
+    text-align: center;
+  }
+
+  .loginLeft p {
+    font-size: 1rem; /* Consistent font size */
+    margin: 10px auto; /* Adjusted margin */
+    max-width: 90%; /* Ensure the text uses more space */
+    text-align: center; /* Center the paragraph */
+  }
+
+  /* Logo adjustments */
+  .logoN img {
+    max-width: 60px; /* Smaller logo size for smaller screens */
+    height: auto;
+    margin-bottom: 5px; /* Adds space between the logo and navigation */
+  }
+  .background-tabs {
+    display: flex;
+    gap: 8px;
+  }
+  .greeting{
+    padding: 2px;
+  }
+
+  /* Text adjustments */
+  .loginMain {
+    flex-direction: column;
+    padding: 20px 10px;
+    gap: 5px; /* Smaller gap for better use of space */
+  }
+
+  .signup-button {
+    font-size: 1rem; /* Consistent button font size */
+    padding: 10px 20px;
+    width: auto;
+    margin: 0 auto; /* Center button */
+  }
+
+  /* Login Box adjustments */
+  .loginBox {
+    width: 120%; /* Full width on smaller screens */
+    margin: 0; /* Center login box */
+    padding: 15px;
+    box-sizing: border-box;
+  }
+
+  .loginBox input {
+    width: 100%;
+    padding: 10px;
+  }
+
+  /* Footer adjustments */
+  .footerMain {
+    text-align: center;
+    padding: 20px 10px; /* Increased padding for better spacing */
+  }
+
+  .copy {
+    font-size: 12px;
+  }
+
+  /* Social Icons adjustments */
+  .social-login-icons {
+    justify-content: center;
+    gap: 15px; /* Increased gap for better spacing */
+    padding: 10px 0; /* Adds padding around icons */
+  }
+
+  .socialcontainer {
+    width: 32px; /* Adjusted icon size */
+    height: 32px; /* Maintain aspect ratio */
+  }
+
+  .socialcontainer svg {
+    width: 100%;
+    height: 100%;
+  }
+  .background-tab-link{
+    padding: 0.3em 1.3em;
+    font-size: 12px;
+  }
+}
+
+/* Media Query for Extra Small Devices */
+@media (max-width: 480px) {
+  .headerMain {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px; /* Add gap between logo and nav */
+  }
+
+  /* Adjusting text and buttons */
+  .loginMain {
+    gap: 10px; /* Reduced gap for compact layout */
+    align-items: center; /* Center elements */
+  }
+
+  .loginLeft h1 {
+    font-size: 1.2rem; /* Smaller font size */
+    margin: 10px auto; /* Center and use more space */
+    max-width: 90%; /* Ensure the text uses more space */
+    white-space: normal; /* Allow text wrapping */
+    text-align: center;
+    top: -25px;
+  }
+
+  .loginLeft p {
+    font-size: 0.9rem; /* Smaller font size */
+    margin: 10px auto; /* Center and use more space */
+    max-width: 90%; /* Ensure the text uses more space */
+    text-align: center;
+  }
+
+  .signup-button {
+    font-size: 0.9rem; /* Smaller button font size */
+    padding: 8px 16px;
+  }
+
+  
+  .social-login-icons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .socialcontainer {
+    width: 28px; /* Smaller icon size */
+  }
+
+  /* Footer adjustments */
+  .footerMain {
+    padding: 15px 0; /* Compact footer padding */
+  }
+}
