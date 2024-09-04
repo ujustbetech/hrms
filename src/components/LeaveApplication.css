@@ -191,4 +191,22 @@
   margin-top: 20px;
 }
 
+@media (max-width: 767px) {
 
+.logo{
+  max-width: 51px; 
+    height: auto;
+    margin-bottom: 7px;
+}
+.leave{
+  height: 500px;
+  padding: 30px;
+  padding-top: 2px;
+}
+.leave-container input[type="text"], .leave-container input[type="date"], .leave-container textarea{
+  width: 90%;
+  padding: 8px;
+  font-size: 13px;
+  margin-bottom: 3px;
+}
+}
