@@ -1,8 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Forum&display=swap');
-
+:root {
+  --orange: #f16f06;
+  --blue: #a2cbda;
+  --darkblue : #16274f;
+  --brown : #323232;
+  --white : #e2e2e2;
+}
 .mainContainer {
-  font-family: 'Arial', sans-serif;
+  /* font-family: 'Arial', sans-serif; */
   color: #ffffff;
   background: url('../space.jpeg') no-repeat center center fixed;
   background-size: cover;
@@ -19,6 +23,16 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px 50px;
+  position: fixed;
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 99;
+}
+.HeaderRight{
+  display: flex;
+  /* flex-direction: column ; */
+  align-items: center;
+  column-gap: 20px;
 }
 .footerMain{
   display: flex;
@@ -37,7 +51,7 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 0;
   background-color: transparent;
 }
 
@@ -146,8 +160,9 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 50px 100px;
+  padding: 50px 50px;
   flex-grow: 1;
+  padding-top: 140px;
 }
 
 /* Left Section */
@@ -156,28 +171,28 @@ nav {
 }
 
 .loginLeft h1 {
-  background: linear-gradient(90deg, #ff7e5f, #feb47b);
+  background: linear-gradient(90deg, var(--orange), var(--orange));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-size: 3em;
   font-weight: 700;
-  font-family: 'Mukta', sans-serif;;
+  font-family: 'Forum', sans-serif;
   margin: 0 0 10px 0;
   line-height: 1.2;
   padding: 0px;
   text-align: left;
-  font-family: ;
+  
 }
 
 .loginLeft p {
-  font-size: 2em;
-  font-family: 'Forum' ,sans-serif;
-  font-weight: 600;
+  font-size: 1.4em;
+  font-family: 'Mukta', sans-serif;
+  font-weight: 100;
   margin: 0 0 20px 0; 
 }
 
 .signup-button {
-  background: linear-gradient(145deg, #6c6cff, #5959ff);
+  background: linear-gradient(145deg, #5d88ce, #a2cbda);
   color: white;
   border: none;
   padding: 15px 30px;
@@ -186,6 +201,7 @@ nav {
   border-radius: 5px;
   cursor: pointer;
   transition: all 0.3s ease;
+  margin-top: 30px;
 }
 
 .signup-button:hover {
@@ -209,27 +225,45 @@ nav {
   height: 300px; /* Allow height to adjust based on content */
   text-align: center;
   border-radius: 15px;
+  align-items: center;
+    display: flex;
+}
+
+.loggedInContainer{
+  display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .loginBox h1 {
-  color:#004085;;
+  color:#16274f;
   margin-bottom: 30px;
   padding: 0px;
   font-family: 'Forum' ,sans-serif;
 }
 
 .greeting {
-  color: #333;
-  padding: 25px;
-  font-size: 18px;
-  font-family: 'Mukta', sans-serif;
+  color: #16274f;
+  font-size: 26px;
+  font-weight: 900;
+  font-family: 'Forum', sans-serif;
+  margin-block-start: 0em;
+    margin-block-end: 0em;
+    margin-bottom: 30px;
+    
+  
 }
 .time {
-  color: #333;
-  font-size: 18px;
+  color: #000;
+  font-size: 20px;
+  font-weight: 100;
   font-family: 'Mukta', sans-serif;
+  margin-block-start: 0em;
+  margin-block-end: 0em;
 }
 /* Buttons */
+
+.loginBox .m-button{margin-top: 30px;}
 .btn {
   background-color: white;
   color: #333;
@@ -247,8 +281,10 @@ nav {
 }
 
 .btn img {
-  width: 250px; 
-  padding: 40px;
+  width: 100%;
+  max-width: 250px; 
+
+  /* padding: 40px; */
 }
 
 .btn:hover {
@@ -258,13 +294,11 @@ nav {
 
 .copy{
   margin: 0 15px;
-  font-size: 1.2em;
+  font-size: 0.9em;
+  color: #a2cbda;
 }
 
-.copy:hover {
-  color: #ff7e5f;
-  cursor: pointer;
-}
+
 
 
 /* From Uiverse.io by javierBarroso */ 
@@ -299,7 +333,7 @@ nav {
 }
 
 .icon svg {
-  fill: wheat;
+  fill: #a2cbda;
   transition: opacity 0.5s ease;
 }
 
@@ -379,7 +413,7 @@ nav {
   letter-spacing: 2.5px;
   font-weight: 500;
   color: #000;
-  background-color: #fff;
+  background-color: #e37216;
   border: none;
   border-radius: 45px;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
@@ -389,8 +423,8 @@ nav {
 }
 
 .bton:hover {
-  background-color: #23c483;
-  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+  background-color: #f16f06;
+  box-shadow: 0px 15px 20px rgba(204, 126, 48, 0.932);
   color: #fff;
   transform: translateY(-7px);
 }
@@ -482,6 +516,7 @@ nav {
   align-items: center;
 }
 
+
 /* Social Icons adjustments */
 .social-login-icons {
   justify-content: center;
@@ -570,3 +605,4 @@ nav {
     margin-bottom: 5px; /* Adds space between copyright and social icons */
   }
 }
+

@@ -1,7 +1,6 @@
 import { getDocs, collection } from 'firebase/firestore';
-import { db } from '../firebaseConfig'; // Adjust the path based on your project structure
+import { db } from '../firebaseConfig'; 
 import {  doc, updateDoc } from 'firebase/firestore';
-// Fetch notifications for a specific user
 export const fetchNotifications = async (userId) => {
   try {
     const notificationsRef = collection(db, 'employee', userId, 'notifications');
@@ -17,7 +16,7 @@ export const fetchNotifications = async (userId) => {
   }
 };
 
-// Mark a notification as read
+
 export const markNotificationAsRead = async (userId, id) => {
   try {
     const notificationRef = doc(db, 'employee', userId, 'notifications', id);

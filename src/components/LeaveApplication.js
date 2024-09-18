@@ -102,7 +102,7 @@ const LeaveApplication = () => {
          {/* Button container */}
   <div className="button-container">
     <button className="buttons" type="submit">
-      Apply Now
+      Apply 
       <svg fill="currentColor" viewBox="0 0 24 24" className="icon">
         <path
           clipRule="evenodd"

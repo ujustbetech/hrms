@@ -1,57 +1,56 @@
-/* Full-screen background with the panel centered */
-.session-panel-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh; /* Full viewport height */
-  background: url('../space.jpeg') no-repeat center center fixed;
-  background-size: cover;
-  overflow: hidden; /* Prevent scrolling */
-  padding: 20px; /* Optional: Add some padding to the sides */
-}
-
-/* Main user sessions panel */
-.user-sessions {
-  width: 100%;
-  max-width: 900px;
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-  overflow: hidden; /* Hide overflow from content */
-  max-height: 100vh; /* Ensure the panel doesn't exceed the viewport height */
-}
-
-/* Header with logo and title */
-.header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.logo {
-  margin-right: 20px;
-  width: 60px;
-  height: auto;
-}
-
-/* Scrollable container for session table */
 .sessions-table-container {
-  max-height: calc(100vh - 150px); /* Adjust this value based on other elements' height */
-  overflow-y: auto; /* Enable scrolling within the table container */
+  padding: 35px;
+    background-color: #fff;
+    background-clip: border-box;
+    min-width: 0;
+    word-wrap: break-word;
+    border-radius: 0.4rem;
 }
 
-/* Table styling */
+
 .sessions-table {
-  width: 100%;
   border-collapse: collapse;
+  width: 100%;
 }
 
 .sessions-table th, .sessions-table td {
-  padding: 12px 15px;
-  border: 1px solid #ddd;
-  text-align: left;
+  vertical-align: middle;
+  padding: 10px;
+  border-bottom: 1px solid #f1f1f1;
 }
+
+
+.sessions-table tbody tr:nth-child(even) {
+  background-color: #f1f5f7;
+}
+
+
+.sessions-table thead th {
+  font-weight: 700;
+  color: #505d69;
+  font-size: 18px;
+  padding: 10px;
+  text-align: start;
+  border: 1px solid #f1f1f1;
+}
+
+.no-user-data {
+  text-align: center;
+  color: #888;
+  font-size: 18px;
+  margin-top: 20px;
+}
+.user-link {
+  color: black;
+  text-decoration: none;
+  
+}
+
+.user-link:hover {
+  text-decoration:none;
+}
+
+
 
 .date-row {
   background-color: #f0f0f0;
@@ -120,6 +119,10 @@
   margin-top: 20px; 
   
 }
+@media (max-width: 767px) {
+  .sessions-table-container {
+      padding: 2px;
+  }
 }
 
-
+}

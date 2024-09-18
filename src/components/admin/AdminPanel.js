@@ -4,6 +4,10 @@ import { collection, addDoc,getDocs, updateDoc, doc } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
 import './AdminPanel.css';
 import logo from '../../videoframe_logo.png';
+import Header from '../Header';
+import Navbar from '../Navbar';
+import ExportToExcel from '../ExportToExcel';
+
 
 const AdminPanel = () => {
   const [usersData, setUsersData] = useState([]);
@@ -63,78 +67,58 @@ const AdminPanel = () => {
   };
 
   return (
-    <div className="admin-panel-wrapper">
-      <div className="admin-panel">
-        <div className="header">
-          <img src={logo} alt="Logo" className="logo" />
-          <h2>User List</h2>
-        </div>
-        <div className="users-table-container">
-          {usersData.length > 0 ? (
-            <table className="users-table">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                </tr>
-              </thead>
-              <tbody>
-                {usersData.map(user => (
-                  <tr key={user.uid}>
-                    <td>
-                      <Link to={`/user-sessions/${user.uid}`} className="user-link">
-                        {user.displayName || 'N/A'}
-                      </Link>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          ) : (
-            <p className="no-user-data">No users data available.</p>
-          )}
-        </div>
-
-        <div className="leave-requests-container">
-          <h2>Leave Requests</h2>
-          {leaveRequests.length > 0 ? (
-            <table className="leave-requests-table">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Leave Type</th>
-                  <th>Start Date</th>
-                  <th>End Date</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {leaveRequests.map(request => (
-                  <tr key={request.id}>
-                    <td>{request.displayName}</td>
-                    <td>{request.leaveType}</td>
-                    <td>{request.startDate}</td>
-                    <td>{request.endDate}</td>
-                    <td>{request.status}</td>
-                    <td>
-                      <button onClick={() => handleUpdateLeaveStatus(request.id, 'Approved')}>
-                        Approve
-                      </button>
-                      <button onClick={() => handleUpdateLeaveStatus(request.id, 'Declined')}>
-                        Decline
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          ) : (
-            <p>No leave requests available.</p>
-          )}
-        </div>
-      </div>
+   
+    
+    <>
+    <Header />
+   
+    <div className='logoContainer'>
+      <img src={logo} alt="Logo" className="logos" />
     </div>
-  );
+     <Navbar/>
+    <main className='maincontainer'>
+    <div className="users-table-container">
+    <button className="back-btn" onClick={() => window.history.back()}>
+    Back
+  </button>
+    <ExportToExcel/>
+  {usersData.length > 0 ? (
+    
+    <table className="users-table">
+ 
+      <thead>
+        <tr>
+          <th>Sr No</th>
+          <th>Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        {usersData.map((user, index) => (
+          <tr key={user.uid}>
+            <td>{index + 1}</td> {/* Display the serial number */}
+            <td>
+              <Link to={`/user-sessions/${user.uid}`} className="user-link">
+                {user.displayName || 'N/A'}
+              </Link>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+
+  ) : (
+    <div  className="loader-container">
+    <svg className="load" viewBox="25 25 50 50">
+      <circle r="20" cy="50" cx="50"></circle>
+    </svg>
+    </div>
+  )}
+</div>
+
+</main>
+   
+  </>
+);
 };
 
 export default AdminPanel;

@@ -1,0 +1,33 @@
+/* Add this CSS to your stylesheet or in a styled component */
+
+.export-button-container {
+    display: flex;
+    justify-content: flex-end; /* Aligns the button to the right */
+    margin: 20px;
+     /* Add some spacing around the container if needed */
+  }
+  
+  .export-button {
+    background-color: #007bff; /* Primary blue color */
+    color: white;
+    padding: 5px 10px;
+    font-size: 17px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-left: 0;
+    margin-top: -35px;
+    box-shadow: 0px 4px 10px rgba(0, 123, 255, 0.2); /* Light shadow */
+    transition: all 0.3s ease;  /* Smooth transition for hover */
+  }
+  
+  .export-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    box-shadow: 0px 6px 15px rgba(0, 123, 255, 0.4); /* Stronger shadow on hover */
+    transform: translateY(-3px); /* Lift the button on hover */
+  }
+  
+  .export-button:active {
+    transform: translateY(1px);  /* Slight push down when clicked */
+  }
+  

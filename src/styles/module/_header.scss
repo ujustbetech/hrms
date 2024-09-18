@@ -1,0 +1,56 @@
+// // Header
+// .m-header {
+//     display: flex;
+//     justify-content: space-between;
+//     padding-top: 0.47rem 0.75rem;
+//     // position: relative;
+//     position: fixed;
+//     left: 0px;
+//     width: 100%;
+//     top: 0px;
+//     overflow: auto;
+//     z-index: 1;
+  
+//     .headerRight {
+//       display: flex;
+//       flex-direction: row;
+//       position: relative;
+//       justify-content: space-between;
+  
+//       > div {
+//         position: relative;
+//         padding: 20px 15px;
+//         align-items: center;
+//         display: flex;
+//         margin-left: 20px;
+//         font-size: 14px;
+
+//         button{
+//           background: transparent;
+//           border: none;
+//           display: flex;
+//           font-size: 18px;
+//           align-items: center;
+//           cursor: pointer;
+
+//           .icon-rotate-90 {
+//             transform: rotate(90deg);
+//             font-size: 24px;
+//             margin-right: 5px;
+//           }
+//         }
+  
+       
+  
+//         // span {
+//         //   transform: rotate(90 deg);
+//         //   font-size: 24px;
+//         //   margin-right: 5px;
+//         // }
+//       }
+//     }
+//     .headerLeft {
+//       display: flex;
+//       background-color: #343a40;
+//     }
+//   }

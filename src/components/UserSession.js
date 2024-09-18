@@ -3,17 +3,13 @@ import { db } from '../firebaseConfig';
 import { doc, getDoc, collection, getDocs } from 'firebase/firestore';
 import { useParams } from 'react-router-dom';
 import logo from '../videoframe_logo.png';
-import { useNavigate } from 'react-router-dom';  
-import './UserSessions.css';
-import Header from './Header';
-import Navbar from './Navbar';
+import './UserSession.css';
 
 const UserSessions = () => {
   const [sessions, setSessions] = useState([]);
   const [expandedDates, setExpandedDates] = useState([]);
   const [userName, setUserName] = useState('');
   const { userId } = useParams();
-  const navigate = useNavigate();  // Initialize useNavigate
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -52,24 +48,16 @@ const UserSessions = () => {
     );
   };
 
-  const handleBack = () => {
-    navigate(-1);  // Navigate back to the previous page
-  };
-
   return (
-   
-        <>
-    <Header />
-   
-    <div className='logoContainer'>
-      <img src={logo} alt="Logo" className="logos" />
-    </div>
-     <Navbar/>
-    <main className='maincontainer'>
-
-        <div className="sessions-table-container">
+    <div className="sessions-panel-wrapper">
+      <div className="user-session">
+        <div className="header">
+          <img src={logo} alt="Logo" className="logo" />
+          <h2>Attendance {userName && `of ${userName}`}</h2> {/* Display the user's name */}
+        </div>
+        <div className="session-table-container">
           {sessions.length > 0 ? (
-            <table className="sessions-table">
+            <table className="session-table">
               <thead>
                 <tr>
                   <th>Date</th>
@@ -81,9 +69,9 @@ const UserSessions = () => {
                 {sessions.map((session) => (
                   <React.Fragment key={session.date}>
                     <tr
-                      className="user-link"
+                      className="date-row"
                       onClick={() => toggleDate(session.date)}
-                      style={{ cursor: 'pointer', color: 'black' }}
+                      style={{ cursor: 'pointer', color: '#004085' }}
                     >
                       <td>{session.date} {expandedDates.includes(session.date) ? '▲' : '▼'}</td>
                       <td colSpan="2"></td>
@@ -102,16 +90,14 @@ const UserSessions = () => {
             </table>
           ) : (
             <div  className="loader-container">
-            <svg className="load" viewBox="25 25 50 50">
-              <circle r="20" cy="50" cx="50"></circle>
-            </svg>
-            </div>
+    <svg className="load" viewBox="25 25 50 50">
+      <circle r="20" cy="50" cx="50"></circle>
+    </svg>
+    </div>
           )}
-       </div>
-</main>
-
-   
-</>
+        </div>
+      </div>
+    </div>
   );
 };
 
