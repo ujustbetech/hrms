@@ -7,6 +7,7 @@ import logo from '../../videoframe_logo.png';
 import Header from '../Header';
 import Navbar from '../Navbar';
 import ExportToExcel from '../ExportToExcel';
+import { IoReturnUpBackOutline } from "react-icons/io5";
 
 
 const AdminPanel = () => {
@@ -78,9 +79,9 @@ const AdminPanel = () => {
      <Navbar/>
     <main className='maincontainer'>
     <div className="users-table-container">
-    <button className="back-btn" onClick={() => window.history.back()}>
+    {/* <button className="m-button-5" onClick={() => window.history.back()}>
     Back
-  </button>
+  </button> */}
     <ExportToExcel/>
   {usersData.length > 0 ? (
     

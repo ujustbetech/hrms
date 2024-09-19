@@ -37,10 +37,10 @@
   border: 1px solid #f1f1f1;
 }
 h2 {
-  font-family: 'Mukta', sans-serif;
+  font-family: 'Forum', sans-serif;
   font-weight: 700; /* You can change the weight depending on your design */
   font-size: 24px; /* Adjust font size if needed */
-  color: #333; /* Change the text color if required */
+  color: var(--darkblue) /* Change the text color if required */
 }
 .view-link {
   display: inline-block;

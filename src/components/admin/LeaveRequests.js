@@ -38,6 +38,9 @@ const LeaveRequests = () => {
       <main className='maincontainer'>
       <div className="leave-requests-container">
         <h2>Leave Requests</h2>
+        <button className="m-button-5" onClick={() => window.history.back()}>
+    Back
+  </button>
         {leaveRequests.length > 0 ? (
           <table className="leave-requests-table">
             <thead>

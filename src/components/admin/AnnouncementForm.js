@@ -1,56 +1,76 @@
 import React, { useState } from 'react';
-import { db } from '../../firebaseConfig'; // Adjust this path
-import { collection, addDoc, Timestamp ,setDoc} from 'firebase/firestore';
+import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { db } from '../../firebaseConfig';
+import logo from '../../videoframe_logo.png';
+import Header from '../Header';
+import Navbar from '../Navbar';
 
 const AnnouncementForm = () => {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  const [announcement, setAnnouncement] = useState('');
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleAnnouncementChange = (e) => {
+    setAnnouncement(e.target.value);
+  };
+
+  const sendAnnouncement = async () => {
+    if (!announcement) return;
 
     try {
-      // Add announcement to announcements collection
-      const announcementRef = await addDoc(collection(db, 'announcements'), {
-        title,
-        content,
-        date: Timestamp.now(),
+      // Get all users (assuming users are in 'employee' collection)
+      const employeesCollection = collection(db, 'employee');
+      const employeeSnapshot = await getDocs(employeesCollection);
+
+      const promises = [];
+      
+      // Add the notification to each user
+      employeeSnapshot.forEach((doc) => {
+        const notificationsCollection = collection(db, 'employee', doc.id, 'notifications');
+        const promise = addDoc(notificationsCollection, {
+          message: announcement,
+          read: false, // Mark as unread by default
+          timestamp: new Date(),
+        });
+        promises.push(promise);
       });
 
-      // Add notification to notifications collection
-      const notificationMessage = `New announcement posted: ${title}`;
-      await addDoc(collection(db, 'notifications'), {
-        message: notificationMessage,
-        date: Timestamp.now(),
-        isRead: false, // Assuming you want to track if users read it
-      });
+      // Wait for all promises to resolve
+      await Promise.all(promises);
 
-      alert('Announcement and notification posted successfully!');
-      setTitle('');
-      setContent('');
+      // Clear the input field after sending
+      setAnnouncement('');
+      alert('Announcement sent to all users');
+      
     } catch (error) {
-      console.error('Error posting announcement or notification: ', error);
+      console.error('Error sending announcement:', error);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Post New Announcement</h2>
-      <label>Title</label>
-      <input
-        type="text"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        required
-      />
-      <label>Content</label>
+    <>
+    <Header />
+    <div className='logoContainer'>
+      <img src={logo} alt="Logo" className="logos" />
+    </div>
+    <Navbar />
+    <main className='maincontainer'>
+    <div className="leave-requests-container">
+    <div className="leave-container">
+      <h2>Send Announcement</h2>
+      <button className="m-button-5" onClick={() => window.history.back()}>
+    Back
+  </button>
+      <div className="form-group">
       <textarea
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-        required
+        value={announcement}
+        onChange={handleAnnouncementChange}
+        placeholder="Enter your announcement"
       />
-      <button type="submit">Post Announcement</button>
-    </form>
+    </div>
+      <button className="m-button" onClick={sendAnnouncement}>Send </button>
+    </div>
+    </div>
+    </main>
+    </>
   );
 };
 

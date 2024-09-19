@@ -3,23 +3,26 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Full viewport height */
+    min-height: 100vh;
+    height: auto;
     background: url('../space.jpeg') no-repeat center center fixed;
     background-size: cover;
-    overflow: hidden; /* Prevent scrolling */
+    background-attachment: fixed;
+    position: relative;
     padding: 20px; /* Optional: Add some padding to the sides */
   }
   
   /* Main user sessions panel */
   .user-session {
     width: 100%;
+    margin-top: 200px;
     max-width: 900px;
     background-color: #ffffff;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     overflow: hidden; /* Hide overflow from content */
-    max-height: 100vh; /* Ensure the panel doesn't exceed the viewport height */
+    height: auto;
   }
   
   /* Header with logo and title */
@@ -37,8 +40,8 @@
   
   /* Scrollable container for session table */
   .session-table-container {
-    max-height: calc(100vh - 150px); /* Adjust this value based on other elements' height */
-    overflow-y: auto; /* Enable scrolling within the table container */
+    max-height: auto; /* Adjust this value based on other elements' height */
+   /* overflow-y: auto;  Enable scrolling within the table container */
   }
   
   /* Table styling */

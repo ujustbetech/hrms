@@ -69,7 +69,7 @@ const LeaveRequestDetail = () => {
         <img src={logo} alt="Logo" className="logos" />
       </div>
       <Navbar />
-      <main className='maincontainer'></main>
+      <main className='maincontainer'>
       <div className="leave-request-detail-container">
         <h2>Leave Request Details</h2>
         <p><strong>Name:</strong> {leaveRequest.displayName}</p>
@@ -91,6 +91,7 @@ const LeaveRequestDetail = () => {
           </div>
         )}
       </div>
+      </main>
     </>
   );
 };

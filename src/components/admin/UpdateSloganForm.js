@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../firebaseConfig"; // Your Firestore configuration
+import logo from '../../videoframe_logo.png';
+import Header from '../Header';
+import Navbar from '../Navbar';
+import './UpdateSlogan.css'
 
 const UpdateSloganForm = () => {
   const [title, setTitle] = useState("");
@@ -24,10 +28,21 @@ const UpdateSloganForm = () => {
   };
 
   return (
-    <div>
+    <>
+    <Header />
+    <div className='logoContainer'>
+      <img src={logo} alt="Logo" className="logos" />
+    </div>
+    <Navbar />
+    <main className='maincontainer'>
+    <div className="leave-requests-container">
+      <div className="leave-container">
       <h2>Update Daily Slogan</h2>
+      <button className="m-button-5" onClick={() => window.history.back()}>
+    Back
+  </button>
       <form onSubmit={handleSubmit}>
-        <div>
+      <div className="form-group">
           <label>Title (H1):</label>
           <input
             type="text"
@@ -36,7 +51,7 @@ const UpdateSloganForm = () => {
             required
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Content (P):</label>
           <textarea
             value={content}
@@ -44,9 +59,12 @@ const UpdateSloganForm = () => {
             required
           ></textarea>
         </div>
-        <button type="submit">Update Slogan</button>
+        <button className="m-button" type="submit">Update Slogan</button>
       </form>
     </div>
+    </div>
+    </main>
+    </>
   );
 };
 
