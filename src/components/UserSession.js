@@ -55,6 +55,9 @@ const UserSessions = () => {
       <div className="sessions-panel-wrapper">
         <div className="user-session">
         <h2>Attendance {userName && `of ${userName}`}</h2> 
+        <button className="m-button-5" onClick={() => window.history.back()}>
+    Back
+  </button>
           <div className="session-table-container">
             {sessions.length > 0 ? (
               <table className="session-table">
