@@ -4,6 +4,8 @@ import { MdLocalPostOffice } from "react-icons/md";
 import { TfiAnnouncement } from "react-icons/tfi";
 import { FaRegEdit } from "react-icons/fa";
 import { FaRegUser } from "react-icons/fa";
+import { MdOutlineNoteAdd } from "react-icons/md";
+import { IoCloudUploadOutline } from "react-icons/io5";
 
 const Navbar = (props) => {
     const navigate = useNavigate(); // useNavigate hook to programmatically navigate
@@ -27,7 +29,7 @@ const Navbar = (props) => {
                             
                         </Link>
                     </li>
-                    {/* Add other navigation items similarly */}
+                
                     <li>
                         <Link to={`/manage-slogans`}>
                             <span className="icons"><FaRegEdit /></span>
@@ -37,8 +39,8 @@ const Navbar = (props) => {
                     </li>
                     <li>
                     <Link to={`/add-slogan`}>
-                            <span className="icons"><FaRegEdit /></span>
-                            <span className="linklabel">add<span className="space"></span>Slogan</span>
+                            <span className="icons"><MdOutlineNoteAdd /></span>
+                            <span className="linklabel">Add<span className="space"></span>Slogan</span>
                             
                         </Link>
 </li>
@@ -46,6 +48,13 @@ const Navbar = (props) => {
                         <Link to={`/update-announcement`}>
                             <span className="icons"><TfiAnnouncement /></span>
                             <span className="linklabel">New<span className="space"></span>Announcemet</span>
+                            
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to={`/uploadpdf`}>
+                            <span className="icons"><IoCloudUploadOutline /></span>
+                            <span className="linklabel">Update<span className="space"></span>Policy</span>
                             
                         </Link>
                     </li>

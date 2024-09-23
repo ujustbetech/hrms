@@ -47,6 +47,7 @@ const UserHeader = () => {
           <div className="HeaderRight">
             <nav>
               <div className="background-tabs">
+              <Link to={"/policy"} className="m-button-2">Policy Updates</Link>
                 <button className="m-button-2" onClick={() => setIsModalOpen(true)}>
                   Apply Leave
                 </button>

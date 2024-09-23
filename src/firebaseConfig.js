@@ -1,9 +1,7 @@
-
-
 import { initializeApp } from 'firebase/app';
 import { getAuth, OAuthProvider } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
-
+import { getStorage } from 'firebase/storage'; // Correct way to import Firebase Storage
 
 const firebaseConfig = {
     apiKey: "AIzaSyBVSGmT465qa3yql0u4dZsnttDxH5DeOxY",
@@ -15,14 +13,15 @@ const firebaseConfig = {
     measurementId: "G-1YDQ3HQ081"
 };
 
-
+// Initialize Firebase app
 const app = initializeApp(firebaseConfig);
 
-
+// Initialize services
 const auth = getAuth(app);
 const db = getFirestore(app);
+const storage = getStorage(app);  // Initialize storage properly
 
-
+// Microsoft provider
 const microsoftProvider = new OAuthProvider('microsoft.com');
 
-export { auth, db, microsoftProvider };
+export { auth, db, microsoftProvider, storage };

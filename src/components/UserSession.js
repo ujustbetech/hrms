@@ -54,7 +54,7 @@ const UserSessions = () => {
     <UserHeader/>   
       <div className="sessions-panel-wrapper">
         <div className="user-session">
-          
+        <h2>Attendance {userName && `of ${userName}`}</h2> 
           <div className="session-table-container">
             {sessions.length > 0 ? (
               <table className="session-table">

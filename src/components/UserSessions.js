@@ -68,6 +68,10 @@ const UserSessions = () => {
     <main className='maincontainer'>
 
         <div className="sessions-table-container">
+        <h2>Attendance {userName && `of ${userName}`}</h2> 
+        <button className="m-button-5" onClick={() => window.history.back()}>
+    Back
+  </button>
           {sessions.length > 0 ? (
             <table className="sessions-table">
               <thead>

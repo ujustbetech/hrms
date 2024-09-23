@@ -97,6 +97,7 @@ h1 {
   font-size: 16px;
   cursor: pointer;
   transition: .5s ease;
+  text-decoration: none;
 }
 
 .m-button::before {
@@ -196,6 +197,7 @@ h1 {
   font-size: 16px;
   cursor: pointer;
   transition: .5s ease;
+  text-decoration: none;
 }
 
 .m-button-3::before {
