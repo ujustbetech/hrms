@@ -13,8 +13,10 @@ import UserSession from './components/UserSession';
 
 // import ExportToExcel from './components/ExportToExcel';
 import './App.css';
-import UpdateSloganForm from './components/admin/UpdateSloganForm';
 import AnnouncementForm from './components/admin/AnnouncementForm';
+import ManageSlogans from './components/admin/ManageSlogans';
+import AddSlogan from './components/admin/AddSlogan';
+import PolicyPage from './components/PolicyPage';
 
 const App = () => {
   return (
@@ -26,8 +28,10 @@ const App = () => {
         <Route path="/leave-requests" element={<LeaveRequests />} />
         <Route path="/leave-request/:id" element={<LeaveRequestDetail />} />
         <Route path="/admin-login" element={<AdminLogin />} />
-        <Route path="/update-slogan" element={<UpdateSloganForm/>} />
+        <Route path="/add-slogan" element={<AddSlogan/>} />
+        <Route path="/manage-slogans" element={<ManageSlogans />} />
         <Route path="/update-announcement" element={<AnnouncementForm/>} />
+        <Route path="/policy" element={<PolicyPage />} />
         {/* Protect the admin panel route */}
         <Route
           path="/admin-panel"

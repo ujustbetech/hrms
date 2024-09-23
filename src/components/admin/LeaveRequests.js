@@ -62,7 +62,7 @@ const LeaveRequests = () => {
                   <td>{request.endDate}</td>
                   <td>{request.status}</td>
                   <td>
-                    <Link to={`/leave-request/${request.id}`}className="view-link">
+                    <Link to={`/leave-request/${request.id}`}className="m-button-6">
                       View
                     </Link>
                   </td>

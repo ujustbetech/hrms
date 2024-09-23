@@ -25,10 +25,7 @@
   align-items: center;
   height: 1vh;
 }
-.logoN img {
-  width: 80px;
-  height: auto;
-}
+
 
 /* Navigation Container */
 nav {
@@ -280,6 +277,7 @@ nav {
   margin: 0 15px;
   font-size: 0.9em;
   color: #a2cbda;
+  padding-bottom: 20px;
 }
 
 
@@ -306,8 +304,8 @@ nav {
 .social-icon-3-3,
 .social-icon-4,
 .social-icon-4-4 {
-  width: 50px;
-  height: 50px;
+  width: 43px;
+  height: 45px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -324,6 +322,7 @@ nav {
 .socialcontainer {
   height: 80px;
   overflow: hidden;
+  padding-bottom: 30px;
 }
 .social-icon-1 {
   transition-duration: 0.4s;
@@ -343,7 +342,7 @@ nav {
   background-color: rgb(0, 0, 0, 0);
 }
 .socialcontainer:hover .social-icon-1 {
-  transform: translateY(-70px);
+  transform: translateY(-68px);
 }
 .socialcontainer:hover .social-icon-1 svg,
 .socialcontainer:hover .social-icon-2 svg,

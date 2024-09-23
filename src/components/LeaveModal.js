@@ -59,14 +59,20 @@ const LeaveModal = ({ isOpen, onRequestClose }) => {
       <h2>Apply for Leave</h2>
       <form onSubmit={handleApplyLeave}>
       <div className="leave-container">
-  <div className="form-group">
-    <label>Leave Type:</label>
-    <input
-      type="text"
-      value={leaveType}
-      onChange={(e) => setLeaveType(e.target.value)}
-      required
-    />
+      <div className="form-group">
+  <label>Leave Type:</label>
+  <select
+    value={leaveType}
+    onChange={(e) => setLeaveType(e.target.value)}
+    required
+  >
+    <option value="" disabled>Select leave type</option>
+    <option value="Sick Leave">Sick Leave</option>
+    <option value="Casual Leave">Casual Leave</option>
+    <option value="Unpaid Leave">Unpaid Leave</option>
+    <option value="CompOff Leave">CompOff Leave</option>
+  
+  </select>
   </div>
   <div className="date-group">
     <div className="form-group">

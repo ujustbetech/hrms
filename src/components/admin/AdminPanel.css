@@ -89,16 +89,17 @@
       background: transparent;
       border: none;
       display: flex;
-    border-radius: 5px;
+    border-radius: 20px;
       font-size: 18px;
       align-items: center;
+      width: 120px;
       cursor: pointer;
       font-family: 'Arial', sans-serif;
       transition: background-color 0.3s ease;
   }
  
 .headerRight button:hover {
-  background-color: #eb630f;
+  background-color:var(--blue);
 }
 
   .headerRight button .icon-rotate-90 {

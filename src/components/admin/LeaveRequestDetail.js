@@ -70,8 +70,12 @@ const LeaveRequestDetail = () => {
       </div>
       <Navbar />
       <main className='maincontainer'>
-      <div className="leave-request-detail-container">
+      <div className="leave-requests-container">
+      <div className="leave-container">
         <h2>Leave Request Details</h2>
+        <button className="m-button-5" onClick={() => window.history.back()}>
+    Back
+  </button>
         <p><strong>Name:</strong> {leaveRequest.displayName}</p>
         <p><strong>Start Date:</strong> {leaveRequest.startDate}</p>
         <p><strong>End Date:</strong> {leaveRequest.endDate}</p>
@@ -90,6 +94,7 @@ const LeaveRequestDetail = () => {
             </button>
           </div>
         )}
+      </div>
       </div>
       </main>
     </>

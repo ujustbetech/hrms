@@ -12,6 +12,7 @@ import LeaveModal from './LeaveModal';
 import UserNotifications from './UserNotifications';
 import { AiOutlineLogin } from "react-icons/ai";
 import { MdOutlineArrowForwardIos } from "react-icons/md";
+import PolicyPage from './PolicyPage';
 
 const Auth = () => {
   const dispatch = useDispatch();
@@ -25,6 +26,8 @@ const Auth = () => {
   const [loginTime, setLoginTime] = useState(null); // Step 1: Add state to store login time
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [slogans, setSlogans] = useState([]);
+  const [currentSlogan, setCurrentSlogan] = useState({ title: '', description: '' });
 
   useEffect(() => {
     const fetchNotifications = async () => {
@@ -211,22 +214,46 @@ const Auth = () => {
   };
 
 
-  useEffect(() => {
-    const fetchSlogan = async () => {
-      const sloganRef = doc(db, "slogans", "currentSlogan"); // Fetch the current slogan
-      const sloganDoc = await getDoc(sloganRef);
+  // useEffect(() => {
+  //   const fetchSlogan = async () => {
+  //     const sloganRef = doc(db, "slogans", "currentSlogan"); // Fetch the current slogan
+  //     const sloganDoc = await getDoc(sloganRef);
 
-      if (sloganDoc.exists()) {
-        const data = sloganDoc.data();
-        setTitle(data.title);
-        setContent(data.content);
-      } else {
-        console.log("No slogan found");
-      }
+  //     if (sloganDoc.exists()) {
+  //       const data = sloganDoc.data();
+  //       setTitle(data.title);
+  //       setContent(data.content);
+  //     } else {
+  //       console.log("No slogan found");
+  //     }
+  //   };
+
+  //   fetchSlogan();
+  // }, []);
+
+  useEffect(() => {
+    const fetchSlogans = async () => {
+      const slogansCollection = collection(db, 'slogans'); // Adjust 'slogans' to your Firestore collection
+      const sloganSnapshot = await getDocs(slogansCollection);
+      const slogansList = sloganSnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      setSlogans(slogansList);
     };
 
-    fetchSlogan();
+    fetchSlogans();
   }, []);
+
+  // Set the current slogan based on the day
+  useEffect(() => {
+    if (slogans.length > 0) {
+      const dayOfYear = new Date().getFullYear() + new Date().getDate(); // Unique daily number
+      const sloganIndex = dayOfYear % slogans.length; // Rotates slogans daily
+      setCurrentSlogan(slogans[sloganIndex]);
+    }
+  }, [slogans]);
 
   return (
     <>
@@ -264,9 +291,13 @@ const Auth = () => {
 
         <div className='loginMain'>
           <div className='loginLeft'>
-            <h1>{title}</h1>
-            <p>{content}</p>
-            <button className="m-button">Lets Go <MdOutlineArrowForwardIos /></button>
+          <h1>{currentSlogan.title}</h1>
+          <p>{currentSlogan.description}</p>
+          
+                <button className="m-button">
+                    Let's Go <MdOutlineArrowForwardIos />
+                </button>
+            
           </div>
           <div className='LoginRight'>
             <div className='loginBox'>

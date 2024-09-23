@@ -29,13 +29,19 @@ const Navbar = (props) => {
                     </li>
                     {/* Add other navigation items similarly */}
                     <li>
-                        <Link to={`/update-slogan`}>
+                        <Link to={`/manage-slogans`}>
                             <span className="icons"><FaRegEdit /></span>
                             <span className="linklabel">Manage<span className="space"></span>Slogan</span>
                             
                         </Link>
                     </li>
-
+                    <li>
+                    <Link to={`/add-slogan`}>
+                            <span className="icons"><FaRegEdit /></span>
+                            <span className="linklabel">add<span className="space"></span>Slogan</span>
+                            
+                        </Link>
+</li>
                     <li>
                         <Link to={`/update-announcement`}>
                             <span className="icons"><TfiAnnouncement /></span>
