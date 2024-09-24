@@ -9,6 +9,7 @@ import Navbar from '../Navbar';
 const AdminUploadPDF = () => {
     const [file, setFile] = useState(null);
     const [message, setMessage] = useState('');
+    const [loading, setLoading] = useState(false); // Loader state
 
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
@@ -18,10 +19,12 @@ const AdminUploadPDF = () => {
     const handleUpload = async () => {
         if (!file) {
             console.log('No file selected');  // Check if file is selected
+            setMessage('Please select a file first.');
             return;
         }
 
         console.log('Starting upload for:', file.name);  // Log upload start
+        setLoading(true);  // Start loader
 
         // Create a reference to the file in Firebase Storage
         const storageRef = ref(storage, `pdfs/${file.name}`);
@@ -37,6 +40,7 @@ const AdminUploadPDF = () => {
             (error) => {
                 setMessage('Error uploading file: ' + error.message);
                 console.error('Upload error:', error);  // Log errors
+                setLoading(false);  // Stop loader if error occurs
             },
             async () => {
                 // Get the download URL once the file is uploaded
@@ -56,6 +60,7 @@ const AdminUploadPDF = () => {
                     setMessage('Error saving file URL: ' + error.message);
                 }
 
+                setLoading(false);  // Stop loader when done
                 setFile(null); // Reset the file input
             }
         );
@@ -73,14 +78,22 @@ const AdminUploadPDF = () => {
         <div className="leave-container">
             <h2>Upload Policy Document</h2>
             <button className="m-button-5" onClick={() => window.history.back()}>
-    Back
-  </button>
-      <div className="form-group">
-            <input type="file" onChange={handleFileChange} />
+                Back
+            </button>
+            <div className="form-group">
+                <input type="file" onChange={handleFileChange} />
             </div>
-            <button className ="m-button" onClick={handleUpload}>Upload PDF</button>
+
+            {/* Show loading text or loader during upload */}
+            {loading ? (
+                <p>Uploading...</p>  // You can replace this with a spinner or a better loader
+            ) : (
+                <button className="m-button" onClick={handleUpload}>
+                    Upload PDF
+                </button>
+            )}
+
             <p>{message}</p>
-            
         </div>
         </div>
         </main>

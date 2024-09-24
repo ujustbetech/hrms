@@ -6,6 +6,7 @@ import { FaRegEdit } from "react-icons/fa";
 import { FaRegUser } from "react-icons/fa";
 import { MdOutlineNoteAdd } from "react-icons/md";
 import { IoCloudUploadOutline } from "react-icons/io5";
+import { FaRegFilePdf } from "react-icons/fa";
 
 const Navbar = (props) => {
     const navigate = useNavigate(); // useNavigate hook to programmatically navigate
@@ -55,6 +56,13 @@ const Navbar = (props) => {
                         <Link to={`/uploadpdf`}>
                             <span className="icons"><IoCloudUploadOutline /></span>
                             <span className="linklabel">Update<span className="space"></span>Policy</span>
+                            
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to={`/managepdf`}>
+                            <span className="icons"><FaRegFilePdf /></span>
+                            <span className="linklabel">Manage<span className="space"></span>Policy</span>
                             
                         </Link>
                     </li>

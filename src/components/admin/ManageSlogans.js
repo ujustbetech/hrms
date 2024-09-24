@@ -51,7 +51,7 @@ const ManageSlogans = () => {
           <div key={slogan.id} className="slogan-item">
             <h3>{slogan.title}</h3>
             <p>{slogan.description}</p>
-            <button className="m-button-2" onClick={() => deleteSlogan(slogan.id)}>
+            <button className="m-button-6" onClick={() => deleteSlogan(slogan.id)}>
               Delete
             </button>
           </div>
