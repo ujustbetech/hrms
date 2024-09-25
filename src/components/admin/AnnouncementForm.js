@@ -52,6 +52,7 @@ const AnnouncementForm = () => {
       <img src={logo} alt="Logo" className="logos" />
     </div>
     <Navbar />
+   
     <main className='maincontainer'>
     <div className="leave-requests-container">
     <div className="leave-container">

@@ -92,3 +92,16 @@
   font-family: 'Mukta', sans-serif;
   font-weight: 600;
 }
+
+.remove-button {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.remove-button:hover {
+  background-color: darkred;
+}

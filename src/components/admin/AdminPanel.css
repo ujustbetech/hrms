@@ -119,14 +119,15 @@
   }
   .m-navbar {
     background-color: #fff;
-    padding-top: 275px;
+    padding-top: 255px;
     width: 70px;
     height: 100vh;
     box-shadow: 0px 0px 15px rgba(161, 158, 158, 0.911); /* Replace @extend.navboxshadowlight with box-shadow */
     box-sizing: border-box;
     position: fixed;
     left: 0px;
-    top: 50px;
+    top: 72px;
+    z-index: 50;
 }
 
 .m-navbar.unexpand > ul > li:hover::before {
@@ -190,6 +191,7 @@
     align-items: center;
     position: relative;
     z-index: 1;
+    text-decoration: none;
 }
 
 .m-navbar a:hover {

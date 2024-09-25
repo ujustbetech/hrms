@@ -57,26 +57,24 @@ const UserSessions = () => {
   };
 
   return (
-   
-        <>
-    <Header />
-   
-    <div className='logoContainer'>
-      <img src={logo} alt="Logo" className="logos" />
-    </div>
-     <Navbar/>
-    <main className='maincontainer'>
-
+    <>
+      <Header />
+      <div className='logoContainer'>
+        <img src={logo} alt="Logo" className="logos" />
+      </div>
+      <Navbar />
+      <main className='maincontainer'>
         <div className="sessions-table-container">
-        <h2>Attendance {userName && `of ${userName}`}</h2> 
-        <button className="m-button-5" onClick={() => window.history.back()}>
-    Back
-  </button>
+          <h2>Attendance {userName && `of ${userName}`}</h2> 
+          <button className="m-button-5" onClick={handleBack}>
+            Back
+          </button>
           {sessions.length > 0 ? (
             <table className="sessions-table">
               <thead>
                 <tr>
-                  <th>Date</th>
+                  <th>Month</th> {/* First column for Month */}
+                  <th>Date</th> {/* Second column for Date */}
                   <th>Login Time</th>
                   <th>Logout Time</th>
                 </tr>
@@ -89,12 +87,14 @@ const UserSessions = () => {
                       onClick={() => toggleDate(session.date)}
                       style={{ cursor: 'pointer', color: 'black' }}
                     >
-                      <td>{session.date} {expandedDates.includes(session.date) ? '▲' : '▼'}</td>
+                      <td>{session.currentMonth || 'N/A'}</td> {/* Display Current Month */}
+                      <td>{session.date} {expandedDates.includes(session.date) ? '▲' : '▼'}</td> {/* Date column */}
                       <td colSpan="2"></td>
                     </tr>
                     {expandedDates.includes(session.date) &&
                       session.sessions.map((sessionDetail, i) => (
                         <tr key={`${session.date}-${i}`}>
+                          <td></td> {/* Empty cell for alignment */}
                           <td></td>
                           <td>{sessionDetail.loginTime}</td>
                           <td>{sessionDetail.logoutTime || 'Still Logged In'}</td>
@@ -105,17 +105,15 @@ const UserSessions = () => {
               </tbody>
             </table>
           ) : (
-            <div  className="loader-container">
-            <svg className="load" viewBox="25 25 50 50">
-              <circle r="20" cy="50" cx="50"></circle>
-            </svg>
+            <div className="loader-container">
+              <svg className="load" viewBox="25 25 50 50">
+                <circle r="20" cy="50" cx="50"></circle>
+              </svg>
             </div>
           )}
-       </div>
-</main>
-
-   
-</>
+        </div>
+      </main>
+    </>
   );
 };
 

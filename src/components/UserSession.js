@@ -51,19 +51,20 @@ const UserSessions = () => {
 
   return (
     <>
-    <UserHeader/>   
+      <UserHeader />   
       <div className="sessions-panel-wrapper">
         <div className="user-session">
-        <h2>Attendance {userName && `of ${userName}`}</h2> 
-        <button className="m-button-5" onClick={() => window.history.back()}>
-    Back
-  </button>
+          <h2>Attendance {userName && `of ${userName}`}</h2> 
+          <button className="m-button-5" onClick={() => window.history.back()}>
+            Back
+          </button>
           <div className="session-table-container">
             {sessions.length > 0 ? (
               <table className="session-table">
                 <thead>
                   <tr>
-                    <th>Date</th>
+                    <th>Month</th> {/* First column for Month */}
+                    <th>Date</th> {/* Second column for Date */}
                     <th>Login Time</th>
                     <th>Logout Time</th>
                   </tr>
@@ -76,12 +77,14 @@ const UserSessions = () => {
                         onClick={() => toggleDate(session.date)}
                         style={{ cursor: 'pointer', color: '#004085' }}
                       >
-                        <td>{session.date} {expandedDates.includes(session.date) ? '▲' : '▼'}</td>
+                        <td>{session.currentMonth || 'N/A'}</td> {/* Display Current Month */}
+                        <td>{session.date} {expandedDates.includes(session.date) ? '▲' : '▼'}</td> {/* Date column */}
                         <td colSpan="2"></td>
                       </tr>
                       {expandedDates.includes(session.date) &&
                         session.sessions.map((sessionDetail, i) => (
                           <tr key={`${session.date}-${i}`}>
+                            <td></td> {/* Empty cell for alignment */}
                             <td></td>
                             <td>{sessionDetail.loginTime}</td>
                             <td>{sessionDetail.logoutTime || 'Still Logged In'}</td>
@@ -102,7 +105,6 @@ const UserSessions = () => {
         </div>
       </div>
     </>
-
   );
 };
 
