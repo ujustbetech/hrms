@@ -91,7 +91,7 @@ const LeaveModal = ({ isOpen, onRequestClose }) => {
               <option value="Casual Leave">Casual Leave</option>
               <option value="Unpaid Leave">Unpaid Leave</option>
               <option value="CompOff Leave">CompOff Leave</option>
-              <option value="Forgot to Mark Attendace">Forgot to Mark Attendace</option>
+              <option value="Forgot to Mark Attendance">Forgot to Mark Attendace</option>
             </select>
           </div>
           <div className="date-group">
