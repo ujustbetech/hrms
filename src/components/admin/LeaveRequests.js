@@ -18,11 +18,20 @@ const LeaveRequests = () => {
     try {
       const leaveRequestsCollection = collection(db, 'leaveRequests');
       const leaveRequestsSnapshot = await getDocs(leaveRequestsCollection);
+
       const requests = leaveRequestsSnapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data(),
       }));
-      setLeaveRequests(requests);
+
+      // Sort the leave requests by startDate or createdAt in descending order (latest first)
+      const sortedRequests = requests.sort((a, b) => {
+        const dateA = new Date(a.startDate || a.createdAt);
+        const dateB = new Date(b.startDate || b.createdAt);
+        return dateB - dateA; // Sort in descending order (latest on top)
+      });
+
+      setLeaveRequests(sortedRequests);
     } catch (error) {
       console.error('Error fetching leave requests:', error);
     }
@@ -62,7 +71,7 @@ const LeaveRequests = () => {
                   <td>{request.endDate}</td>
                   <td>{request.status}</td>
                   <td>
-                    <Link to={`/leave-request/${request.id}`}className="m-button-6">
+                    <Link to={`/leave-request/${request.id}`} className="m-button-6">
                       View
                     </Link>
                   </td>
@@ -71,7 +80,7 @@ const LeaveRequests = () => {
             </tbody>
           </table>
         ) : (
-          <div  className="loader-container">
+          <div className="loader-container">
           <svg className="load" viewBox="25 25 50 50">
             <circle r="20" cy="50" cx="50"></circle>
           </svg>
