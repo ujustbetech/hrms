@@ -37,6 +37,12 @@ const LeaveRequests = () => {
     }
   };
 
+  const formatDate = (dateString) => {
+    const dateParts = dateString.split('-'); // Split 'yyyy-mm-dd' into parts
+    if (dateParts.length !== 3) return dateString; // Return original if format is unexpected
+    return `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`; // Return 'dd/mm/yyyy'
+  };
+
   return (
     <>
       <Header />
@@ -45,48 +51,48 @@ const LeaveRequests = () => {
       </div>
       <Navbar />
       <main className='maincontainer'>
-      <div className="leave-requests-container">
-        <h2>Leave Requests</h2>
-        <button className="m-button-5" onClick={() => window.history.back()}>
-    Back
-  </button>
-        {leaveRequests.length > 0 ? (
-          <table className="leave-requests-table">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Leave Type</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Status</th>
-                <th>Details</th>
-              </tr>
-            </thead>
-            <tbody>
-              {leaveRequests.map(request => (
-                <tr key={request.id}>
-                  <td>{request.displayName}</td>
-                  <td>{request.leaveType}</td>
-                  <td>{request.startDate}</td>
-                  <td>{request.endDate}</td>
-                  <td>{request.status}</td>
-                  <td>
-                    <Link to={`/leave-request/${request.id}`} className="m-button-6">
-                      View
-                    </Link>
-                  </td>
+        <div className="leave-requests-container">
+          <h2>Leave Requests</h2>
+          <button className="m-button-5" onClick={() => window.history.back()}>
+            Back
+          </button>
+          {leaveRequests.length > 0 ? (
+            <table className="leave-requests-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Leave Type</th>
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                  <th>Status</th>
+                  <th>Details</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        ) : (
-          <div className="loader-container">
-          <svg className="load" viewBox="25 25 50 50">
-            <circle r="20" cy="50" cx="50"></circle>
-          </svg>
-          </div>
-        )}
-      </div>
+              </thead>
+              <tbody>
+                {leaveRequests.map(request => (
+                  <tr key={request.id}>
+                    <td>{request.displayName}</td>
+                    <td>{request.leaveType}</td>
+                    <td>{formatDate(request.startDate)}</td> {/* Format the start date */}
+                    <td>{formatDate(request.endDate)}</td> {/* Format the end date */}
+                    <td>{request.status}</td>
+                    <td>
+                      <Link to={`/leave-request/${request.id}`} className="m-button-6">
+                        View
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <div className="loader-container">
+              <svg className="load" viewBox="25 25 50 50">
+                <circle r="20" cy="50" cx="50"></circle>
+              </svg>
+            </div>
+          )}
+        </div>
       </main>
     </>
   );

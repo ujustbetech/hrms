@@ -19,28 +19,7 @@
   padding: 2px 40px;
 }
 
-.leave {
-  width: 100%;
-  max-width: 700px;
-  background-color: #ffffff;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  overflow: hidden;
-}
 
-.header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 30px;
-  border-bottom: 2px solid #eceff1;
-  padding-bottom: 10px;
-}
-
-.header h2 {
-  font-size: 22px;
-  color: #34495e;
-}
 
 .leave-container {
   margin-bottom: 20px;

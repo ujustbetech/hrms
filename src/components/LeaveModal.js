@@ -80,7 +80,7 @@ const LeaveModal = ({ isOpen, onRequestClose }) => {
       <form onSubmit={handleApplyLeave}>
         <div className="leave-container">
           <div className="form-group">
-            <label>Leave Type:</label>
+          <label>Leave Type:<sup>*</sup></label>
             <select
               value={leaveType}
               onChange={(e) => setLeaveType(e.target.value)}
@@ -91,12 +91,12 @@ const LeaveModal = ({ isOpen, onRequestClose }) => {
               <option value="Casual Leave">Casual Leave</option>
               <option value="Unpaid Leave">Unpaid Leave</option>
               <option value="CompOff Leave">CompOff Leave</option>
-              <option value="Forgot to Mark Attendance">Forgot to Mark Attendace</option>
+              <option value="Forgot to Mark Attendace">Forgot to Mark Attendace</option>
             </select>
           </div>
           <div className="date-group">
             <div className="form-group">
-              <label>Start Date:</label>
+              <label>Start Date:<sup>*</sup></label>
               <input
                 type="date"
                 value={startDate}
@@ -105,7 +105,7 @@ const LeaveModal = ({ isOpen, onRequestClose }) => {
               />
             </div>
             <div className="form-group">
-              <label>End Date:</label>
+              <label>End Date:<sup>*</sup></label>
               <input
                 type="date"
                 value={endDate}
@@ -115,7 +115,7 @@ const LeaveModal = ({ isOpen, onRequestClose }) => {
             </div>
           </div>
           <div className="form-group">
-            <label>Reason:</label>
+            <label>Reason:<sup>*</sup></label>
             <textarea
               value={reason}
               onChange={(e) => setReason(e.target.value)}

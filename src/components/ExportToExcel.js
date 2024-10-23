@@ -5,48 +5,50 @@ import * as XLSX from 'xlsx';
 import './ExportToExcel.css';
 
 const ExportToExcel = () => {
+
+  // Function to format date and time to dd/mm/yyyy hh:mm:ss
+  const formatDateTime = (dateString) => {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+    return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+  };
+
   const fetchDataAndExport = async () => {
     try {
-      const employeeSnapshot = await getDocs(collection(db, 'employee'));  // Fetch all employee documents
+      const employeeSnapshot = await getDocs(collection(db, 'employee'));  
       const data = [];
 
       for (const employeeDoc of employeeSnapshot.docs) {
         const employeeData = employeeDoc.data();
         const Name = employeeData.displayName;
 
-        // Fetch the sessions subcollection for each employee
         const sessionsSnapshot = await getDocs(collection(db, 'employee', employeeDoc.id, 'sessions'));
 
         sessionsSnapshot.forEach((sessionDoc) => {
           const sessionData = sessionDoc.data();
 
-          // Check if 'sessions' is an array and loop over each session
           if (Array.isArray(sessionData.sessions)) {
             // Extract the date from sessionData (using sessionDoc.id which is the date)
-            const sessionDate = sessionDoc.id; // This is the date of the session
+            const sessionDate = sessionDoc.id;
 
             sessionData.sessions.forEach((session) => {
               const sessionId = session.sessionId || 'N/A';
-              const loginTime = session.loginTime || 'N/A';
-              const logoutTime = session.logoutTime || 'N/A';
-              const month = sessionData.currentMonth || 'N/A';  // Assuming currentMonth is the current date
+              const loginTime = session.loginTime ? formatDateTime(session.loginTime) : 'N/A'; // Format login time
+              const logoutTime = session.logoutTime ? formatDateTime(session.logoutTime) : 'N/A'; // Format logout time
+              const month = sessionData.currentMonth || 'N/A';  
 
-              // Handling the loginTime from Firestore (assumed Firestore Timestamp)
-              const formattedLoginTime = loginTime
-                ? new Date(loginTime.seconds * 1000).toLocaleTimeString() // Format time
-                : 'N/A';
-
-              const formattedLogoutTime = logoutTime
-                ? new Date(logoutTime.seconds * 1000).toLocaleTimeString() // Format time
-                : 'N/A';
-
-              // Add data to array for Excel export
+              // Add data to array 
               data.push({
                 Name,
-                month,                     // Month column
-                date: sessionDate,         // Date column (from sessionDoc.id)
-                loginTime,  // Keeping login time column
-                logoutTime // Keeping logout time column
+                month,                      
+                date: sessionDate,          
+                loginTime,  
+                logoutTime 
               });
             });
           }
@@ -58,7 +60,7 @@ const ExportToExcel = () => {
       const workbook = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(workbook, worksheet, "Employee Sessions");
 
-      // Export the Excel file with a static name
+      // Export the Excel file with name
       XLSX.writeFile(workbook, "employee_sessions_data.xlsx");
     } catch (error) {
       console.error("Error fetching data from Firestore:", error);

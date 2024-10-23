@@ -139,3 +139,9 @@
 .form-group select::-ms-expand {
   display: none; /* For IE */
 }
+
+
+sup {
+  font-size: 14px;
+color: red;
+}

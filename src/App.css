@@ -283,7 +283,7 @@ h1 {
   position: relative;
   overflow: hidden;
   color: var(--orange);
-  z-index: 1;
+  z-index: 0;
   border: 1px solid var(--orange);
   background-color: transparent;
   display: flex;

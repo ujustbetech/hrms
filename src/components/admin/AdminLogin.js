@@ -29,7 +29,7 @@ const AdminLogin = () => {
         <h2>Admin Login</h2>
         {error && <p className="error-message">{error}</p>}
         <div className="input-group">
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="email">Email:<sup>*</sup></label>
           <input
             type="email"
             id="email"
@@ -39,7 +39,7 @@ const AdminLogin = () => {
           />
         </div>
         <div className="input-group">
-          <label htmlFor="password">Password:</label>
+          <label htmlFor="password">Password:<sup>*</sup></label>
           <input
             type="password"
             id="password"

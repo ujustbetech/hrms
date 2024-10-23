@@ -9,47 +9,52 @@ import Navbar from '../Navbar';
 const AdminUploadPDF = () => {
     const [file, setFile] = useState(null);
     const [message, setMessage] = useState('');
-    const [loading, setLoading] = useState(false); // Loader state
+    const [loading, setLoading] = useState(false);
+    const [uploadProgress, setUploadProgress] = useState(0);
 
     const handleFileChange = (e) => {
-        setFile(e.target.files[0]);
-        console.log('File selected:', e.target.files[0]);  // Log selected file
+        const selectedFile = e.target.files[0];
+        if (selectedFile && selectedFile.type === 'application/pdf') {
+            setFile(selectedFile);
+            console.log('File selected:', selectedFile);
+        } else {
+            setMessage('Please select a valid PDF file.');
+            setFile(null); // Reset the file if invalid
+        }
     };
 
     const handleUpload = async () => {
         if (!file) {
-            console.log('No file selected');  // Check if file is selected
+            console.log('No file selected');
             setMessage('Please select a file first.');
             return;
         }
 
-        console.log('Starting upload for:', file.name);  // Log upload start
-        setLoading(true);  // Start loader
+        console.log('Starting upload for:', file.name);
+        setLoading(true);
+        setUploadProgress(0); // Reset progress
 
-        // Create a reference to the file in Firebase Storage
         const storageRef = ref(storage, `pdfs/${file.name}`);
         const uploadTask = uploadBytesResumable(storageRef, file);
 
         uploadTask.on(
             'state_changed',
             (snapshot) => {
-                // Log upload progress
                 const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                setUploadProgress(progress);
                 console.log('Upload is ' + progress + '% done');
             },
             (error) => {
                 setMessage('Error uploading file: ' + error.message);
-                console.error('Upload error:', error);  // Log errors
-                setLoading(false);  // Stop loader if error occurs
+                console.error('Upload error:', error);
+                setLoading(false);
             },
             async () => {
-                // Get the download URL once the file is uploaded
                 const downloadURL = await getDownloadURL(storageRef);
-                console.log('File uploaded. Download URL:', downloadURL);  // Log URL
+                console.log('File uploaded. Download URL:', downloadURL);
                 
-                // Save the file URL to Firestore using modular syntax
                 try {
-                    await addDoc(collection(db, 'policies'), { // Use addDoc with collection
+                    await addDoc(collection(db, 'policies'), {
                         name: file.name,
                         url: downloadURL,
                         createdAt: new Date(),
@@ -60,43 +65,47 @@ const AdminUploadPDF = () => {
                     setMessage('Error saving file URL: ' + error.message);
                 }
 
-                setLoading(false);  // Stop loader when done
-                setFile(null); // Reset the file input
+                setLoading(false);
+                setFile(null);
+                setUploadProgress(0); // Reset progress after upload
             }
         );
     };
 
     return (
         <>
-        <Header />
-        <div className='logoContainer'>
-          <img src={logo} alt="Logo" className="logos" />
-        </div>
-        <Navbar />
-        <main className='maincontainer'>
-        <div className="leave-requests-container">
-        <div className="leave-container">
-            <h2>Upload Policy Document</h2>
-            <button className="m-button-5" onClick={() => window.history.back()}>
-                Back
-            </button>
-            <div className="form-group">
-                <input type="file" onChange={handleFileChange} />
+            <Header />
+            <div className='logoContainer'>
+                <img src={logo} alt="Logo" className="logos" />
             </div>
+            <Navbar />
+            <main className='maincontainer'>
+                <div className="leave-requests-container">
+                    <div className="leave-container">
+                        <h2>Upload Policy Document</h2>
+                        <button className="m-button-5" onClick={() => window.history.back()}>
+                            Back
+                        </button>
+                        <div className="form-group">
+                            <input type="file" onChange={handleFileChange} />
+                        </div>
 
-            {/* Show loading text or loader during upload */}
-            {loading ? (
-                <p>Uploading...</p>  // You can replace this with a spinner or a better loader
-            ) : (
-                <button className="m-button" onClick={handleUpload}>
-                    Upload PDF
-                </button>
-            )}
+                        {/* Show loading text or loader during upload */}
+                        {loading ? (
+                            <>
+                                <p>Uploading...</p>
+                                <p>Upload Progress: {uploadProgress.toFixed(2)}%</p> {/* Display progress */}
+                            </>
+                        ) : (
+                            <button className="m-button" onClick={handleUpload}>
+                                Upload PDF
+                            </button>
+                        )}
 
-            <p>{message}</p>
-        </div>
-        </div>
-        </main>
+                        <p>{message}</p>
+                    </div>
+                </div>
+            </main>
         </>
     );
 };

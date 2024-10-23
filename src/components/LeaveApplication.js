@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { db } from '../firebaseConfig';
 import { collection, addDoc } from 'firebase/firestore';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';  // Import useNavigate
+import { useNavigate } from 'react-router-dom'; 
 import logo from '../videoframe_logo.png';
 import Swal from 'sweetalert2';
 import './LeaveApplication.css';
@@ -13,10 +13,18 @@ const LeaveApplication = () => {
   const [endDate, setEndDate] = useState('');
   const [reason, setReason] = useState('');
   const user = useSelector((state) => state.auth.user);
-  const navigate = useNavigate();  // Initialize useNavigate
+  const navigate = useNavigate();  
+
+  const formatDateForFirestore = (dateString) => {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
 
   const handleApplyLeave = async (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
+    e.preventDefault(); 
     
     if (!user) return;
 
@@ -27,8 +35,8 @@ const LeaveApplication = () => {
           userId: user.uid,
           displayName: user.displayName || 'Anonymous',
           leaveType,
-          startDate,
-          endDate,
+          startDate: formatDateForFirestore(startDate),  // Store formatted start date
+          endDate: formatDateForFirestore(endDate),      // Store formatted end date
           reason,
           status: 'Pending',
           appliedDate: new Date().toISOString(),
@@ -66,7 +74,7 @@ const LeaveApplication = () => {
   };
 
   const handleBack = () => {
-    navigate(-1);  // Navigate back to the previous page
+    navigate(-1);  
   };
 
   return (
@@ -80,7 +88,7 @@ const LeaveApplication = () => {
         <form onSubmit={handleApplyLeave}>
           <div className="leave-container">
             <div className="form-group">
-              <label>Leave Type:</label>
+              <label>Leave Type:<sup>*</sup></label>
               <select
                 value={leaveType}
                 onChange={(e) => setLeaveType(e.target.value)}
@@ -91,11 +99,12 @@ const LeaveApplication = () => {
                 <option value="Casual Leave">Casual Leave</option>
                 <option value="Unpaid Leave">Unpaid Leave</option>
                 <option value="CompOff Leave">CompOff Leave</option>
+                <option value="Forgot to Mark Attendance">Forgot to Mark Attendance</option>
               </select>
             </div>
 
             <div className="form-group">
-              <label>Start Date:</label>
+              <label>Start Date:<sup>*</sup></label>
               <input
                 type="date"
                 value={startDate}
@@ -105,7 +114,7 @@ const LeaveApplication = () => {
             </div>
 
             <div className="form-group">
-              <label>End Date:</label>
+              <label>End Date:<sup>*</sup></label>
               <input
                 type="date"
                 value={endDate}
@@ -115,7 +124,7 @@ const LeaveApplication = () => {
             </div>
 
             <div className="form-group">
-              <label>Reason:</label>
+              <label>Reason:<sup>*</sup></label>
               <textarea
                 value={reason}
                 onChange={(e) => setReason(e.target.value)}

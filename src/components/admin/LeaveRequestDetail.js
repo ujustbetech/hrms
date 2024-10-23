@@ -32,16 +32,20 @@ const LeaveRequestDetail = () => {
 
   const handleUpdateLeaveStatus = async (status) => {
     try {
-      // Update leave status
+      let declineReason = '';
+      if (status === 'Declined') {
+        declineReason = prompt("Please provide a reason for declining the leave:");
+        if (!declineReason) return; // Exit if no reason is provided
+      }
+
       const leaveRequestRef = doc(db, 'leaveRequests', id);
       await updateDoc(leaveRequestRef, { status });
 
       setLeaveRequest((prev) => ({ ...prev, status }));
 
-      // Add notification to Firestore
       const notificationRef = collection(db, 'employee', leaveRequest.userId, 'notifications');
       await addDoc(notificationRef, {
-        message: `Your leave request has been ${status.toLowerCase()}.`,
+        message: `Your leave request has been ${status.toLowerCase()}${status === 'Declined' ? `: ${declineReason}` : ''}.`,
         read: false,
         timestamp: new Date().toISOString(),
       });
@@ -50,6 +54,14 @@ const LeaveRequestDetail = () => {
     } catch (error) {
       console.error('Error updating leave status and sending notification:', error);
     }
+  };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
   };
 
   if (!leaveRequest) {
@@ -70,32 +82,31 @@ const LeaveRequestDetail = () => {
       </div>
       <Navbar />
       <main className='maincontainer'>
-      <div className="leave-requests-container">
-      <div className="leave-container">
-        <h2>Leave Request Details</h2>
-        <button className="m-button-5" onClick={() => window.history.back()}>
-    Back
-  </button>
-        <p><strong>Name:</strong> {leaveRequest.displayName}</p>
-        <p><strong>Start Date:</strong> {leaveRequest.startDate}</p>
-        <p><strong>End Date:</strong> {leaveRequest.endDate}</p>
-        <p><strong>Leave Type:</strong> {leaveRequest.leaveType}</p>
-        <p><strong>Reason:</strong> {leaveRequest.reason}</p>
-        <p><strong>Status:</strong> {leaveRequest.status}</p>
+        <div className="leave-requests-container">
+          <div className="leave-container">
+            <h2>Leave Request Details</h2>
+            <button className="m-button-5" onClick={() => window.history.back()}>
+              Back
+            </button>
+            <p><strong>Name:</strong> {leaveRequest.displayName}</p>
+            <p><strong>Start Date:</strong> {formatDate(leaveRequest.startDate)}</p> {/* Apply formatDate */}
+            <p><strong>End Date:</strong> {formatDate(leaveRequest.endDate)}</p> {/* Apply formatDate */}
+            <p><strong>Leave Type:</strong> {leaveRequest.leaveType}</p>
+            <p><strong>Reason:</strong> {leaveRequest.reason}</p>
+            <p><strong>Status:</strong> {leaveRequest.status}</p>
 
-        {/* Conditionally render the buttons only if the status is "Pending" */}
-        {leaveRequest.status === 'Pending' && (
-          <div className="btn-container">
-            <button onClick={() => handleUpdateLeaveStatus('Approved')}>
-              Approve
-            </button>
-            <button onClick={() => handleUpdateLeaveStatus('Declined')}>
-              Decline
-            </button>
+            {leaveRequest.status === 'Pending' && (
+              <div className="btn-container">
+                <button className="approve-btn" onClick={() => handleUpdateLeaveStatus('Approved')}>
+                  Approve
+                </button>
+                <button className="decline-btn" onClick={() => handleUpdateLeaveStatus('Declined')}>
+                  Decline
+                </button>
+              </div>
+            )}
           </div>
-        )}
-      </div>
-      </div>
+        </div>
       </main>
     </>
   );

@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../../firebaseConfig';
-import { collection, addDoc,getDocs, updateDoc, doc } from 'firebase/firestore';
+import { collection, addDoc, getDocs, updateDoc, doc } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
 import './AdminPanel.css';
 import logo from '../../videoframe_logo.png';
 import Header from '../Header';
 import Navbar from '../Navbar';
 import ExportToExcel from '../ExportToExcel';
-import { IoReturnUpBackOutline } from "react-icons/io5";
-
+import { FaSearch } from "react-icons/fa";
 
 const AdminPanel = () => {
   const [usersData, setUsersData] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]); // State for filtered users
   const [leaveRequests, setLeaveRequests] = useState([]);
+  const [searchQuery, setSearchQuery] = useState(''); // State for search query
 
   useEffect(() => {
     fetchAllUsersData();
@@ -28,6 +29,7 @@ const AdminPanel = () => {
         displayName: doc.data().displayName
       }));
       setUsersData(users);
+      setFilteredUsers(users); // Initially show all users
     } catch (error) {
       console.error('Error fetching users data:', error);
     }
@@ -46,6 +48,7 @@ const AdminPanel = () => {
       console.error('Error fetching leave requests:', error);
     }
   };
+
   const handleUpdateLeaveStatus = async (id, status, userId, displayName) => {
     try {
       // Update leave status
@@ -67,59 +70,81 @@ const AdminPanel = () => {
     }
   };
 
+  const handleSearch = (e) => {
+    const query = e.target.value.toLowerCase();
+    setSearchQuery(query);
+    
+    // Filter users based on search query
+    const filtered = usersData.filter(user => 
+      user.displayName.toLowerCase().includes(query)
+    );
+    setFilteredUsers(filtered);
+  };
+
   return (
-   
-    
     <>
-    <Header />
-   
-    <div className='logoContainer'>
-      <img src={logo} alt="Logo" className="logos" />
-    </div>
-     <Navbar/>
-    <main className='maincontainer'>
-    <div className="users-table-container">
-    {/* <button className="m-button-5" onClick={() => window.history.back()}>
-    Back
-  </button> */}
-    <ExportToExcel/>
-  {usersData.length > 0 ? (
-    
-    <table className="users-table">
- 
-      <thead>
-        <tr>
-          <th>Sr No</th>
-          <th>Name</th>
-        </tr>
-      </thead>
-      <tbody>
-        {usersData.map((user, index) => (
-          <tr key={user.uid}>
-            <td>{index + 1}</td> {/* Display the serial number */}
-            <td>
-              <Link to={`/user-sessions/${user.uid}`} className="user-link">
-                {user.displayName || 'N/A'}
-              </Link>
-            </td>
+      <Header />
+      <div className='logoContainer'>
+        <img src={logo} alt="Logo" className="logos" />
+      </div>
+      <Navbar />
+      <main className='maincontainer'>
+        <div className="users-table-container">
+          <h2>Users Attendance List</h2>
+          <ExportToExcel />
+          
+          
+
+          {filteredUsers.length > 0 ? (
+            <table className="users-table">
+              <thead>
+                <tr>
+                  <th>Sr No</th>
+                  <th>Name</th>
+                </tr>
+              </thead>
+              <thead>
+            <tr>
+              <th>
+                </th>
+                <th> <div className="search">
+          <input
+            type="text"
+            placeholder="Search by name"
+            value={searchQuery}
+            onChange={handleSearch}
+          
+          />
+          <button type="submit" class="searchButton">
+        <FaSearch/>
+     </button>
+          </div></th>
           </tr>
-        ))}
-      </tbody>
-    </table>
-
-  ) : (
-    <div  className="loader-container">
-    <svg className="load" viewBox="25 25 50 50">
-      <circle r="20" cy="50" cx="50"></circle>
-    </svg>
-    </div>
-  )}
-</div>
-
-</main>
-   
-  </>
-);
+          </thead>
+              <tbody>
+                {filteredUsers.map((user, index) => (
+                  <tr key={user.uid}>
+                    <td>{index + 1}</td> {/* Display the serial number */}
+                    <td>
+                      <Link to={`/user-sessions/${user.uid}`} className="user-link">
+                        {user.displayName || 'N/A'}
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <div className="loader-container">
+              <svg className="load" viewBox="25 25 50 50">
+                <circle r="20" cy="50" cx="50"></circle>
+              </svg>
+            </div>
+          )}
+        </div>
+      </main>
+    </>
+  );
 };
 
 export default AdminPanel;
