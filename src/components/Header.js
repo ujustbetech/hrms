@@ -31,7 +31,7 @@ const Header = () => {
               }) 
               
               localStorage.removeItem("ucoreadmin");
-              navigate("/admin/admin-login");      
+              navigate("/");      
                 
              
             }},
