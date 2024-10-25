@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../../firebaseConfig';
-import { collection, addDoc, getDocs, updateDoc, doc } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
 import './AdminPanel.css';
 import logo from '../../videoframe_logo.png';
@@ -12,7 +12,7 @@ import { FaSearch } from "react-icons/fa";
 const AdminPanel = () => {
   const [usersData, setUsersData] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]); // State for filtered users
-  const [leaveRequests, setLeaveRequests] = useState([]);
+  const [setLeaveRequests] = useState([]);
   const [searchQuery, setSearchQuery] = useState(''); // State for search query
 
   useEffect(() => {
@@ -49,26 +49,26 @@ const AdminPanel = () => {
     }
   };
 
-  const handleUpdateLeaveStatus = async (id, status, userId, displayName) => {
-    try {
-      // Update leave status
-      const leaveRequestRef = doc(db, 'leaveRequests', id);
-      await updateDoc(leaveRequestRef, { status });
-      setLeaveRequests(leaveRequests.map(req => (req.id === id ? { ...req, status } : req)));
+  // const handleUpdateLeaveStatus = async (id, status, userId, displayName) => {
+  //   try {
+  //     // Update leave status
+  //     const leaveRequestRef = doc(db, 'leaveRequests', id);
+  //     await updateDoc(leaveRequestRef, { status });
+  //     setLeaveRequests(leaveRequests.map(req => (req.id === id ? { ...req, status } : req)));
       
-      // Add notification to Firestore
-      const notificationRef = collection(db, 'employee', userId, 'notifications');
-      await addDoc(notificationRef, {
-        message: `Your leave request has been ${status.toLowerCase()}.`,
-        read: false,
-        timestamp: new Date().toISOString(),
-      });
+  //     // Add notification to Firestore
+  //     const notificationRef = collection(db, 'employee', userId, 'notifications');
+  //     await addDoc(notificationRef, {
+  //       message: `Your leave request has been ${status.toLowerCase()}.`,
+  //       read: false,
+  //       timestamp: new Date().toISOString(),
+  //     });
   
-      console.log('Notification sent:', displayName);
-    } catch (error) {
-      console.error('Error updating leave status and sending notification:', error);
-    }
-  };
+  //     console.log('Notification sent:', displayName);
+  //   } catch (error) {
+  //     console.error('Error updating leave status and sending notification:', error);
+  //   }
+  // };
 
   const handleSearch = (e) => {
     const query = e.target.value.toLowerCase();

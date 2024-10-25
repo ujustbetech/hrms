@@ -19,6 +19,7 @@ import AddSlogan from './components/admin/AddSlogan';
 import PolicyPage from './components/PolicyPage';
 import AdminUploadPDF from './components/admin/AdminUploadPDF';
 import AdminManagePDF from './components/admin/AdminManagePDF';
+import ManageAnnouncement from './components/admin/ManageAnnouncement';
 
 const App = () => {
   return (
@@ -36,6 +37,7 @@ const App = () => {
         <Route path="/policy" element={<PolicyPage />} />
         <Route path="/uploadpdf" element={<AdminUploadPDF/>} />
         <Route path="managepdf" element= {<AdminManagePDF/>} />
+        <Route path="manageann" element= {<ManageAnnouncement/>} />
 
         {/* Protect the admin panel route */}
         <Route

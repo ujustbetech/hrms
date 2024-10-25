@@ -110,20 +110,21 @@
 .search {
   width: 100%;
   position: relative;
-  display: flex;
+  display: flex; 
 }
+
 .searchTerm {
   width: 100%;
   border: 2px solid #e2e2e2;
   border-right: none;
   padding: 5px;
   height: 20px;
-  border-radius: 5px 0 0 5px;
+  border-radius: 20px 0 0 20px; /* Increased the border-radius for a curvy effect */
   outline: none;
   color: #9DBFAF;
 }
 
-.searchTerm:focus{
+.searchTerm:focus {
   color: black;
 }
 
@@ -134,10 +135,11 @@
   background: #e2e2e2;
   text-align: center;
   color: #fff;
-  border-radius: 0 5px 5px 0;
+  border-radius: 0 20px 20px 0; /* Increased the border-radius for a curvy effect */
   cursor: pointer;
   font-size: 20px;
 }
+
 
 @media (max-width: 480px) {
   .header h2{
@@ -156,4 +158,10 @@
   }
 }
 
+}
+
+h2{
+  font-family: Forum, sans-serif;
+    font-size: 24px;
+    font-weight: 700;
 }

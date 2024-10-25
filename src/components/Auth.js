@@ -12,7 +12,6 @@ import LeaveModal from './LeaveModal';
 import UserNotifications from './UserNotifications';
 import { AiOutlineLogin } from "react-icons/ai";
 import { MdOutlineArrowForwardIos } from "react-icons/md";
-import PolicyPage from './PolicyPage';
 
 const Auth = () => {
   const dispatch = useDispatch();
@@ -23,19 +22,20 @@ const Auth = () => {
   const [notifications, setNotifications] = useState([]);
   const [currentDate, setCurrentDate] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [loginTime, setLoginTime] = useState(null); // Step 1: Add state to store login time
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const [loginTime, setLoginTime] = useState(localStorage.getItem('loginTime') || null);
   const [slogans, setSlogans] = useState([]);
   const [currentSlogan, setCurrentSlogan] = useState({ title: '', description: '' });
 
   useEffect(() => {
     const fetchNotifications = async () => {
+      if (!user) return;
+
       try {
         const notificationsRef = collection(db, 'employee', user.uid, 'notifications');
         const notificationsQuery = query(notificationsRef, where('read', '==', false));
         const querySnapshot = await getDocs(notificationsQuery);
         const fetchedNotifications = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        
         setNotifications(fetchedNotifications);
         setUnreadCount(fetchedNotifications.length);
       } catch (error) {
@@ -43,29 +43,13 @@ const Auth = () => {
       }
     };
 
-    if (user) {
-      fetchNotifications();
-    }
+    fetchNotifications();
   }, [user]);
-
-
 
   useEffect(() => {
     const date = new Date();
-    // Format date as 'day/month/year'
-    const formattedDate = date.toLocaleDateString('en-GB');
-    setCurrentDate(formattedDate);
+    setCurrentDate(date.toLocaleDateString('en-GB'));
   }, []);
-  const markAsRead = async (id) => {
-    try {
-      const notificationRef = doc(db, 'employee', user.uid, 'notifications', id);
-      await updateDoc(notificationRef, { read: true });
-      setNotifications(notifications.filter(notification => notification.id !== id));
-      setUnreadCount(prevCount => prevCount - 1);
-    } catch (error) {
-      console.error('Error marking notification as read:', error);
-    }
-  };
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -81,48 +65,22 @@ const Auth = () => {
     }
   }, [user]);
 
-  useEffect(() => {
-    const handleBeforeUnload = (event) => {
-      event.preventDefault();
-      event.returnValue = '';
-    };
-
-    window.addEventListener('beforeunload', handleBeforeUnload);
-
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
-  }, []);
-
   const checkAndCreateNewSession = async () => {
-    if (!user || !user.uid) {
+    if (!user?.uid) {
       console.error('User not defined or uid missing');
       return;
     }
 
-    const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    const now = new Date();
-    const currentDate = now.toISOString().split('T')[0];
+    const currentDate = new Date().toISOString().split('T')[0];
     const lastSessionDate = localStorage.getItem('lastSessionDate');
 
     if (!lastSessionDate || currentDate !== lastSessionDate) {
-      const userRef = doc(db, 'employee', user.uid);
-      await setDoc(userRef, {}, { merge: true });
+      await setDoc(doc(db, 'employee', user.uid), {}, { merge: true });
 
       const sessionRef = doc(db, 'employee', user.uid, 'sessions', currentDate);
+      const newSession = { sessionId: new Date().toISOString(), loginTime: currentTime, logoutTime: null };
 
-      const newSession = {
-        sessionId: now.toISOString(),
-        loginTime: now.toLocaleString(),
-        logoutTime: null,
-      };
-
-      const sessionData = {
-        sessions: arrayUnion(newSession),
-        currentMonth: month[now.getMonth()],
-      };
-
-      await setDoc(sessionRef, sessionData, { merge: true });
+      await setDoc(sessionRef, { sessions: arrayUnion(newSession), currentMonth: new Date().toLocaleString('default', { month: 'long' }) }, { merge: true });
 
       setSessionId(newSession.sessionId);
       localStorage.setItem('sessionId', newSession.sessionId);
@@ -134,19 +92,10 @@ const Auth = () => {
     }
   };
 
-  useEffect(() => {
-    const storedLoginTime = localStorage.getItem('loginTime');
-    if (storedLoginTime) {
-      setLoginTime(storedLoginTime); // Set the login time from localStorage
-    }
-  }, []);
-
-
   const handleLogin = async () => {
     try {
       const provider = new OAuthProvider('microsoft.com');
       provider.setCustomParameters({ prompt: 'select_account' });
-
       await setPersistence(auth, browserSessionPersistence);
 
       const result = await signInWithPopup(auth, provider);
@@ -156,46 +105,33 @@ const Auth = () => {
       const userDoc = await getDoc(userRef);
 
       if (!userDoc.exists()) {
-        await setDoc(userRef, {
-          displayName: user.displayName || 'Guest',
-        });
+        await setDoc(userRef, { displayName: user.displayName || 'Guest' });
       } else {
-        await updateDoc(userRef, {
-          displayName: user.displayName || 'Guest',
-        });
+        await updateDoc(userRef, { displayName: user.displayName || 'Guest' });
       }
 
       dispatch(setUser(user));
-
-      const now = new Date();
-      const formattedLoginTime = now.toLocaleTimeString();
-
-      // Save login time in localStorage
+      const formattedLoginTime = new Date().toLocaleTimeString();
       localStorage.setItem('loginTime', formattedLoginTime);
-      setLoginTime(formattedLoginTime); // Update state
+      setLoginTime(formattedLoginTime);
 
       checkAndCreateNewSession();
-
     } catch (error) {
       console.error('Error during login:', error);
     }
   };
-
 
   const handleLogout = async () => {
     try {
       if (user && sessionId) {
         const currentDate = new Date().toISOString().split('T')[0];
         const sessionRef = doc(db, 'employee', user.uid, 'sessions', currentDate);
-
         const sessionDoc = await getDoc(sessionRef);
 
         if (sessionDoc.exists()) {
           const sessionData = sessionDoc.data();
           const updatedSessions = sessionData.sessions.map(session =>
-            session.sessionId === sessionId
-              ? { ...session, logoutTime: new Date().toLocaleString() }
-              : session
+            session.sessionId === sessionId ? { ...session, logoutTime: new Date().toLocaleString() } : session
           );
 
           await updateDoc(sessionRef, { sessions: updatedSessions });
@@ -213,48 +149,29 @@ const Auth = () => {
     }
   };
 
-
-  // useEffect(() => {
-  //   const fetchSlogan = async () => {
-  //     const sloganRef = doc(db, "slogans", "currentSlogan"); // Fetch the current slogan
-  //     const sloganDoc = await getDoc(sloganRef);
-
-  //     if (sloganDoc.exists()) {
-  //       const data = sloganDoc.data();
-  //       setTitle(data.title);
-  //       setContent(data.content);
-  //     } else {
-  //       console.log("No slogan found");
-  //     }
-  //   };
-
-  //   fetchSlogan();
-  // }, []);
-
   useEffect(() => {
     const fetchSlogans = async () => {
-      const slogansCollection = collection(db, 'slogans'); // Adjust 'slogans' to your Firestore collection
-      const sloganSnapshot = await getDocs(slogansCollection);
-      const slogansList = sloganSnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-
-      setSlogans(slogansList);
+      try {
+        const slogansCollection = collection(db, 'slogans');
+        const sloganSnapshot = await getDocs(slogansCollection);
+        const slogansList = sloganSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        
+        setSlogans(slogansList);
+      } catch (error) {
+        console.error('Error fetching slogans:', error);
+      }
     };
 
     fetchSlogans();
   }, []);
 
-  // Set the current slogan based on the day
   useEffect(() => {
     if (slogans.length > 0) {
-      const dayOfYear = new Date().getFullYear() + new Date().getDate(); // Unique daily number
-      const sloganIndex = dayOfYear % slogans.length; // Rotates slogans daily
+      const dayOfYear = new Date().getFullYear() + new Date().getDate();
+      const sloganIndex = dayOfYear % slogans.length;
       setCurrentSlogan(slogans[sloganIndex]);
     }
   }, [slogans]);
-
   return (
     <>
       <section className='mainContainer'>

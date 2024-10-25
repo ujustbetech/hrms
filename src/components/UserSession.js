@@ -115,11 +115,13 @@ const UserSessions = () => {
               type="text"
               placeholder="Filter by month"
               value={monthFilter}
+              style={{ borderRadius: '20px',height: '30px', border: '1px solid #16274f', paddingLeft: '10px'}}
               onChange={(e) => setMonthFilter(e.target.value)} // Update month filter
             />
-             <button type="submit" class="searchButton">
-        <FaSearch/>
-     </button>
+            
+  
+        <FaSearch style={{ color: '#16274f', fontSize: '20px' ,paddingLeft:'5px',paddingTop:'6px',cursor:'pointer'}} />
+        
             </div>
             
   </th>
@@ -129,12 +131,11 @@ const UserSessions = () => {
               type="text"
               placeholder="Filter by date"
               value={dateFilter}
+              style={{ borderRadius: '20px',height: '30px', border: '1px solid #16274f', paddingLeft: '10px',cursor:'pointer'}}
               onChange={(e) => setDateFilter(e.target.value)} // Update date filter
             />
-            <button type="submit" class="searchButton">
-        <FaSearch/>
-     </button>
-          </div>
+               <FaSearch style={{ color: '#16274f', fontSize: '20px' ,paddingLeft:'5px',paddingTop:'6px',cursor:'pointer'}} />
+          </div>  
                 </th>
                 <th></th>
                 <th></th>

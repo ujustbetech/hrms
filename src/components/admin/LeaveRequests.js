@@ -56,7 +56,7 @@ const LeaveRequests = () => {
           <button className="m-button-5" onClick={() => window.history.back()}>
             Back
           </button>
-          {leaveRequests.length > 0 ? (
+          {leaveRequests.length > 0 ? ( 
             <table className="leave-requests-table">
               <thead>
                 <tr>

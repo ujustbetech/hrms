@@ -37,7 +37,7 @@ const ExportToExcel = () => {
             const sessionDate = sessionDoc.id;
 
             sessionData.sessions.forEach((session) => {
-              const sessionId = session.sessionId || 'N/A';
+            
               const loginTime = session.loginTime ? formatDateTime(session.loginTime) : 'N/A'; // Format login time
               const logoutTime = session.logoutTime ? formatDateTime(session.logoutTime) : 'N/A'; // Format logout time
               const month = sessionData.currentMonth || 'N/A';  

@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../../firebaseConfig'; // Firebase config
-import { Link } from 'react-router-dom';
 import logo from '../../videoframe_logo.png';
 import Header from '../Header';
 import Navbar from '../Navbar';
-//import './ManageSlogans.css'; // CSS for styling
+
 
 const ManageSlogans = () => {
   const [slogans, setSlogans] = useState([]);
@@ -48,7 +47,7 @@ const ManageSlogans = () => {
 
       <div className="form-group">
         {slogans.map((slogan) => (
-          <div key={slogan.id} className="slogan-item">
+          <div key={slogan.id} className="slogan">
             <h3>{slogan.title}</h3>
             <p>{slogan.description}</p>
             <button className="m-button-6" onClick={() => deleteSlogan(slogan.id)}>
@@ -56,7 +55,7 @@ const ManageSlogans = () => {
             </button>
           </div>
         ))}
-      </div>
+      </div>     
     </div>
     </div>
     </main>

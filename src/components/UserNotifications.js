@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { collection, getDocs, doc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 import { IoNotificationsOutline, IoNotifications } from 'react-icons/io5';
-import { FaArrowRightLong } from 'react-icons/fa6';
+
 
 import './UserNotifications.css';
 

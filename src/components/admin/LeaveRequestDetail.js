@@ -88,12 +88,14 @@ const LeaveRequestDetail = () => {
             <button className="m-button-5" onClick={() => window.history.back()}>
               Back
             </button>
+            <div className='leave-request'>
             <p><strong>Name:</strong> {leaveRequest.displayName}</p>
             <p><strong>Start Date:</strong> {formatDate(leaveRequest.startDate)}</p> {/* Apply formatDate */}
             <p><strong>End Date:</strong> {formatDate(leaveRequest.endDate)}</p> {/* Apply formatDate */}
             <p><strong>Leave Type:</strong> {leaveRequest.leaveType}</p>
             <p><strong>Reason:</strong> {leaveRequest.reason}</p>
             <p><strong>Status:</strong> {leaveRequest.status}</p>
+            </div>
 
             {leaveRequest.status === 'Pending' && (
               <div className="btn-container">
